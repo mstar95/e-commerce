@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 class ProductConfiguration {
 
     @Bean
-    ProductFacade auctionFacade(ProductRepository productRepository){
+    ProductFacade productFacade(ProductRepository productRepository){
         ProductService productService = new ProductService(productRepository);
         return new ProductFacade(productService);
     }

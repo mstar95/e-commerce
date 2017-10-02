@@ -4,7 +4,7 @@ import pl.ecommerce.backend.product.dto.ProductDto;
 
 class ProductFactory {
 
-    static Product  productDtoToProduct(ProductDto productDto) {
+    static Product createProduct(ProductDto productDto) {
         return Product.builder()
                 .id(productDto.getId())
                 .userId(productDto.getUserId())
@@ -12,7 +12,7 @@ class ProductFactory {
                 .build();
     }
 
-    static ProductDto productToProductDto(Product product) {
+    static ProductDto createProductDto(Product product) {
         return ProductDto.builder()
                 .id(product.getId())
                 .userId(product.getUserId())

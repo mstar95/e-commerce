@@ -21,5 +21,4 @@ class AuctionFactory {
                 .name(productDto.getName())
                 .build();
     }
-
 }

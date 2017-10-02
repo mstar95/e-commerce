@@ -3,7 +3,6 @@ package pl.ecommerce.backend.auction.domain;
 import lombok.RequiredArgsConstructor;
 import pl.ecommerce.backend.auction.dto.AuctionInDto;
 import pl.ecommerce.backend.auction.dto.AuctionOutDto;
-import pl.ecommerce.backend.product.domain.ProductFacade;
 import pl.ecommerce.backend.product.dto.ProductDto;
 
 import java.util.Optional;
@@ -13,7 +12,7 @@ public class AuctionFacade {
 
     private final AuctionService auctionService;
 
-    public Long createAuctionOfExistingProduct(AuctionInDto auctionInDto){
+    public Long createAuction(AuctionInDto auctionInDto){
         Auction auction = AuctionFactory.createAuction(auctionInDto);
         return auctionService.createAuction(auction);
     }

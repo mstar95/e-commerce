@@ -28,9 +28,10 @@ class AuctionFacadeSpec extends Specification {
 
     def "Should create an auction and product"(){
         given:
-        def dto = createAuctionInDto(EXISTING_PRODUCT_ID)
+        def auctionDto = createAuctionInDto(EXISTING_PRODUCT_ID)
+        def productDto = createProductDto()
         when:
-        def auctionId = auctionFacade.createAuctionOfExistingProduct(dto)
+        def auctionId = auctionFacade.createAuctionOfNewProduct(auctionDto, productDto)
         then:
         auctionId == EXISTING_AUCTION_ID
     }
@@ -39,7 +40,7 @@ class AuctionFacadeSpec extends Specification {
         given:
         def dto = createAuctionInDto(EXISTING_PRODUCT_ID)
         when:
-        def auctionId = auctionFacade.createAuctionOfExistingProduct(dto)
+        def auctionId = auctionFacade.createAuction(dto)
         then:
         auctionId == EXISTING_AUCTION_ID
     }
@@ -48,7 +49,7 @@ class AuctionFacadeSpec extends Specification {
         given:
         def dto = createAuctionInDto(NOT_EXISTING_PRODUCT_ID)
         when:
-        auctionFacade.createAuctionOfExistingProduct(dto)
+        auctionFacade.createAuction(dto)
         then:
         thrown(AuctionCreationException.class)
     }

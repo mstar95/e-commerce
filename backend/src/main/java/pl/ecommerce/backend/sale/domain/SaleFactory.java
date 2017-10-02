@@ -1,6 +1,5 @@
 package pl.ecommerce.backend.sale.domain;
 
-import pl.ecommerce.backend.auction.dto.AuctionOutDto;
 import pl.ecommerce.backend.product.dto.ProductDto;
 import pl.ecommerce.backend.sale.dto.SaleInDto;
 import pl.ecommerce.backend.sale.dto.SaleOutDto;

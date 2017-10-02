@@ -10,10 +10,11 @@ import spock.lang.Specification
 class SaleFacadeSpec extends Specification{
     private final String PRODUCT_NAME = "Yeezy"
     private final Long EXISTING_PRODUCT_ID = 1L
-    private final Long NOT_EXISTING_PRODUCT_ID = 2L
+    private final Long NOT_EXISTING_PRODUCT_ID = 100L
     private final Long EXISTING_SALE_ID = 1L
-    private final Long NOT_EXISTING_SALE_ID = 2L
+    private final Long NOT_EXISTING_SALE_ID = 100L
     private final Long USER_ID = 1L
+    private final Long ANOTHER_USER_ID = 2L
 
     def saleRepositoryStub = Stub(SaleRepository)
     def productFacadeStub = Stub(ProductFacade)
@@ -23,6 +24,8 @@ class SaleFacadeSpec extends Specification{
     def setup() {
         saleRepositoryStub.save(_) >> createSale()
         saleRepositoryStub.findById(EXISTING_SALE_ID) >> Optional.of(createSale())
+        saleRepositoryStub.findSalesByUserId(USER_ID) >> [createSale(), createSale()]
+        saleRepositoryStub.findSalesByUserId(ANOTHER_USER_ID) >> []
         productFacadeStub.find(EXISTING_PRODUCT_ID) >> Optional.of(createProductDto())
     }
 
@@ -71,6 +74,20 @@ class SaleFacadeSpec extends Specification{
         def saleOpt = saleFacade.find(NOT_EXISTING_SALE_ID)
         then:
         !saleOpt.isPresent()
+    }
+
+    def "Should find 2 sales"(){
+        when:
+        def sales = saleFacade.findByUserId(USER_ID)
+        then:
+        sales.size() == 2
+    }
+
+    def "Should find 0 sales"(){
+        when:
+        def sales = saleFacade.findByUserId(ANOTHER_USER_ID)
+        then:
+        sales.empty
     }
 
     def createSaleInDto(Long productId){

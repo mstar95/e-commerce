@@ -1,6 +1,7 @@
 package pl.ecommerce.backend.auction.domain
 
 import pl.ecommerce.backend.auction.dto.AuctionInDto
+import pl.ecommerce.backend.auction.dto.AuctionOutDto
 import pl.ecommerce.backend.auction.exceptions.AuctionCreationException
 import pl.ecommerce.backend.product.domain.ProductFacade
 import pl.ecommerce.backend.product.dto.ProductDto
@@ -10,10 +11,11 @@ class AuctionFacadeSpec extends Specification {
 
     private final String PRODUCT_NAME = "Yeezy"
     private final Long EXISTING_PRODUCT_ID = 1L
-    private final Long NOT_EXISTING_PRODUCT_ID = 2L
+    private final Long NOT_EXISTING_PRODUCT_ID = 100L
     private final Long EXISTING_AUCTION_ID = 1L
-    private final Long NOT_EXISTING_AUCTION_ID = 2L
+    private final Long NOT_EXISTING_AUCTION_ID = 100L
     private final Long USER_ID = 1L
+    private final Long ANOTHER_USER_ID = 1L
 
     def auctionRepositoryStub = Stub(AuctionRepository)
     def productFacadeStub = Stub(ProductFacade)
@@ -21,8 +23,10 @@ class AuctionFacadeSpec extends Specification {
     def auctionFacade = new AuctionFacade(auctionServiceStub)
 
     def setup() {
-        auctionRepositoryStub.save(_) >> createAuction()
-        auctionRepositoryStub.findById(EXISTING_AUCTION_ID) >> Optional.of(createAuction())
+        auctionRepositoryStub.save(_) >> createAuction(USER_ID)
+        auctionRepositoryStub.findById(EXISTING_AUCTION_ID) >> Optional.of(createAuction(USER_ID))
+        auctionRepositoryStub.findAuctionsByUserId(USER_ID) >>[createAuction(USER_ID), createAuction(USER_ID)]
+        auctionRepositoryStub.findAuctionsByUserId(ANOTHER_USER_ID) >> []
         productFacadeStub.find(EXISTING_PRODUCT_ID) >> Optional.of(createProductDto())
     }
 
@@ -73,6 +77,20 @@ class AuctionFacadeSpec extends Specification {
         !auctionOpt.isPresent()
     }
 
+    def "Should find 2 auctions"(){
+        when:
+        def auctions = auctionFacade.findByUserId(USER_ID)
+        then:
+        auctions.size() == 2
+    }
+
+    def "Should find 0 auctions"(){
+        when:
+        def auctions = auctionFacade.findByUserId(USER_ID)
+        then:
+        auctions.empty
+    }
+
     def createAuctionInDto(Long productId){
         return AuctionInDto.builder()
                 .productId(productId)
@@ -80,15 +98,16 @@ class AuctionFacadeSpec extends Specification {
     }
 
     def createAuctionOutDto(Long productId){
-        return AuctionInDto.builder()
+        return AuctionOutDto.builder()
                 .productId(productId)
+                .userId(USER_ID)
                 .build()
     }
 
-    def createAuction(){
+    def createAuction(Long userId){
         return Auction.builder()
                 .id(EXISTING_AUCTION_ID)
-                .userId(USER_ID)
+                .userId(userId)
                 .productId(EXISTING_PRODUCT_ID)
                 .build()
     }

@@ -6,7 +6,10 @@ import pl.ecommerce.backend.auction.exceptions.AuctionCreationException;
 import pl.ecommerce.backend.product.domain.ProductFacade;
 import pl.ecommerce.backend.product.dto.ProductDto;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 class AuctionService {
@@ -27,12 +30,19 @@ class AuctionService {
 
     Optional<AuctionOutDto> find(Long auctionId) {
         Optional<Auction> auctionOpt = auctionRepository.findById(auctionId);
-        if(!auctionOpt.isPresent()) {
-            return Optional.empty();
-        }
-        Auction auction = auctionOpt.get();
+        return auctionOpt.map(this::getProductByIdAndMergeWithAuction);
+    }
+
+    List<AuctionOutDto> findByUserId(Long userId) {
+        List<Auction> auctions = auctionRepository.findAuctionsByUserId(userId);
+        return auctions.stream()
+                .map(this::getProductByIdAndMergeWithAuction)
+                .collect(Collectors.toList());
+    }
+
+    private AuctionOutDto getProductByIdAndMergeWithAuction(Auction auction){
         ProductDto productDto = getProductById(auction.getProductId());
-        return Optional.of(AuctionFactory.createAuctionOutDto(auction, productDto));
+        return AuctionFactory.createAuctionOutDto(auction, productDto);
     }
 
     private ProductDto getProductById(Long productId) {

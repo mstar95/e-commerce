@@ -21,4 +21,12 @@ class AuctionFactory {
                 .name(productDto.getName())
                 .build();
     }
+
+    static Auction createAuction(AuctionInDto auctionInDto, ProductDto productDto) {
+        return Auction.builder()
+                .id(auctionInDto.getId())
+                .userId(productDto.getUserId())
+                .productId(auctionInDto.getProductId())
+                .build();
+    }
 }

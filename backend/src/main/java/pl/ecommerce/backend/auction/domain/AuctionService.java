@@ -5,8 +5,8 @@ import pl.ecommerce.backend.auction.dto.AuctionOutDto;
 import pl.ecommerce.backend.auction.exceptions.AuctionCreationException;
 import pl.ecommerce.backend.product.domain.ProductFacade;
 import pl.ecommerce.backend.product.dto.ProductDto;
+import pl.ecommerce.backend.user.domain.UserFacade;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,7 +18,8 @@ class AuctionService {
     private final ProductFacade productFacade;
 
     Long createAuction(Auction auction){
-        getProductById(auction.getProductId());
+        ProductDto productDto = getProductById(auction.getProductId());
+        auction.setUserId(productDto.getUserId());
         return auctionRepository.save(auction).getId();
     }
 

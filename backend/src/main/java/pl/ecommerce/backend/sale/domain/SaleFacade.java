@@ -19,7 +19,7 @@ public class SaleFacade {
     }
 
     public Long createSaleOfNewProduct(SaleInDto saleInDto, ProductDto productDto) {
-        Sale sale = SaleFactory.createSale(saleInDto);
+        Sale sale = SaleFactory.createSale(saleInDto, productDto);
         return saleService.createSaleOfNewProduct(sale, productDto);
     }
 

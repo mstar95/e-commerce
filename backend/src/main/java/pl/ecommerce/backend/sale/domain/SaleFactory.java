@@ -21,4 +21,12 @@ class SaleFactory {
                 .name(productDto.getName())
                 .build();
     }
+
+    static Sale createSale(SaleInDto saleInDto, ProductDto productDto) {
+        return Sale.builder()
+                .id(saleInDto.getId())
+                .userId(productDto.getUserId())
+                .productId(saleInDto.getProductId())
+                .build();
+    }
 }

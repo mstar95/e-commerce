@@ -19,7 +19,7 @@ public class AuctionFacade {
     }
 
     public Long createAuctionOfNewProduct(AuctionInDto auctionInDto, ProductDto productDto) {
-        Auction auction = AuctionFactory.createAuction(auctionInDto);
+        Auction auction = AuctionFactory.createAuction(auctionInDto, productDto);
         return auctionService.createAuctionOfNewProduct(auction, productDto);
     }
 

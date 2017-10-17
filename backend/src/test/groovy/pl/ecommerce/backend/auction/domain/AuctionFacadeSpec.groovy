@@ -1,121 +1,77 @@
 package pl.ecommerce.backend.auction.domain
 
-import pl.ecommerce.backend.auction.dto.AuctionInDto
-import pl.ecommerce.backend.auction.dto.AuctionOutDto
 import pl.ecommerce.backend.auction.exceptions.AuctionCreationException
+import pl.ecommerce.backend.base.AuctionTestData
+import pl.ecommerce.backend.base.ProductTestData
+import pl.ecommerce.backend.base.UserTestData
 import pl.ecommerce.backend.product.domain.ProductFacade
 import pl.ecommerce.backend.product.dto.ProductDto
 import spock.lang.Specification
 
 class AuctionFacadeSpec extends Specification {
 
-    private final String PRODUCT_NAME = "Yeezy"
-    private final Long EXISTING_PRODUCT_ID = 1L
-    private final Long NOT_EXISTING_PRODUCT_ID = 100L
-    private final Long EXISTING_AUCTION_ID = 1L
-    private final Long NOT_EXISTING_AUCTION_ID = 100L
-    private final Long USER_ID = 1L
-    private final Long ANOTHER_USER_ID = 1L
-
-    def auctionRepositoryStub = Stub(AuctionRepository)
     def productFacadeStub = Stub(ProductFacade)
-    def auctionServiceStub = new AuctionService(auctionRepositoryStub, productFacadeStub)
+    def auctionInMemoryRepository = new AuctionInMemoryRepository()
+    def auctionServiceStub = new AuctionService(auctionInMemoryRepository, productFacadeStub)
     def auctionFacade = new AuctionFacade(auctionServiceStub)
 
     def setup() {
-        auctionRepositoryStub.save(_) >> createAuction(USER_ID)
-        auctionRepositoryStub.findById(EXISTING_AUCTION_ID) >> Optional.of(createAuction(USER_ID))
-        auctionRepositoryStub.findAuctionsByUserId(USER_ID) >>[createAuction(USER_ID), createAuction(USER_ID)]
-        auctionRepositoryStub.findAuctionsByUserId(ANOTHER_USER_ID) >> []
-        productFacadeStub.find(EXISTING_PRODUCT_ID) >> Optional.of(createProductDto())
+        productFacadeStub.createProduct(_ as ProductDto) >> ProductTestData.createdProductDto0.id
+        productFacadeStub.find(ProductTestData.createdProductDto0.id) >> Optional.of(ProductTestData.createdProductDto0)
     }
 
     def "Should create an auction and product"(){
         given:
-        def auctionDto = createAuctionInDto(EXISTING_PRODUCT_ID)
-        def productDto = createProductDto()
+        def auctionDto = AuctionTestData.newProductAuctionInDto0
+        def productDto = ProductTestData.productDto0
         when:
         def auctionId = auctionFacade.createAuctionOfNewProduct(auctionDto, productDto)
+        def auctionOpt = auctionFacade.find(auctionId)
         then:
-        auctionId == EXISTING_AUCTION_ID
+        auctionOpt.isPresent()
+        def  auction = auctionOpt.get()
+        auction.id == auctionId
+        auction.userId == productDto.userId
+        auction.name == productDto.getName()
     }
 
     def "Should create an auction"(){
         given:
-        def dto = createAuctionInDto(EXISTING_PRODUCT_ID)
+        def auctionDto =  AuctionTestData.existingProductAuctionInDto0
+        def productDto = ProductTestData.createdProductDto0
         when:
-        def auctionId = auctionFacade.createAuction(dto)
+        def auctionId = auctionFacade.createAuction(auctionDto)
+        def auctionOpt = auctionFacade.find(auctionId)
+        def auctions = auctionFacade.findByUserId(productDto.userId)
         then:
-        auctionId == EXISTING_AUCTION_ID
+        auctionOpt.isPresent()
+        def  auction = auctionOpt.get()
+        auction.id == auctionId
+        auction.userId == productDto.userId
+        auction.name == productDto.getName()
+        auctions.size() == 1
     }
 
     def "Should throw an create auction exception"(){
         given:
-        def dto = createAuctionInDto(NOT_EXISTING_PRODUCT_ID)
+        def dto = AuctionTestData.newProductAuctionInDto0
         when:
         auctionFacade.createAuction(dto)
         then:
         thrown(AuctionCreationException.class)
     }
 
-    def "Should find a auction"(){
-        when:
-        def auctionOpt = auctionFacade.find(EXISTING_AUCTION_ID)
-        then:
-        auctionOpt.isPresent()
-        def  auction = auctionOpt.get()
-        auction.id == EXISTING_AUCTION_ID
-        auction.userId == USER_ID
-        auction.productId == EXISTING_PRODUCT_ID
-        auction.name == PRODUCT_NAME
-    }
-
     def "Should find a empty optional"(){
         when:
-        def auctionOpt = auctionFacade.find(NOT_EXISTING_AUCTION_ID)
+        def auctionOpt = auctionFacade.find(AuctionTestData.NOT_EXISTING_AUCTION_ID)
         then:
         !auctionOpt.isPresent()
     }
 
-    def "Should find 2 auctions"(){
-        when:
-        def auctions = auctionFacade.findByUserId(USER_ID)
-        then:
-        auctions.size() == 2
-    }
-
     def "Should find 0 auctions"(){
         when:
-        def auctions = auctionFacade.findByUserId(USER_ID)
+        def auctions = auctionFacade.findByUserId(UserTestData.USER_ID_1)
         then:
         auctions.empty
-    }
-
-    def createAuctionInDto(Long productId){
-        return AuctionInDto.builder()
-                .productId(productId)
-                .build()
-    }
-
-    def createAuctionOutDto(Long productId){
-        return AuctionOutDto.builder()
-                .productId(productId)
-                .userId(USER_ID)
-                .build()
-    }
-
-    def createAuction(Long userId){
-        return Auction.builder()
-                .id(EXISTING_AUCTION_ID)
-                .userId(userId)
-                .productId(EXISTING_PRODUCT_ID)
-                .build()
-    }
-
-    def createProductDto(){
-        return ProductDto.builder()
-                .id(EXISTING_PRODUCT_ID)
-                .name(PRODUCT_NAME)
-                .build()
     }
 }

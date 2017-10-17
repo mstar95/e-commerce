@@ -10,7 +10,8 @@ class ProductService {
     private final ProductRepository productRepository;
 
     Long createProduct(Product product) {
-       return productRepository.save(product).getId();
+
+        return productRepository.save(product).getId();
     }
 
     Optional<Product> find(Long productId) {

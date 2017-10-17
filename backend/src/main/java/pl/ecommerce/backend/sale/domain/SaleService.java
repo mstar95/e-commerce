@@ -17,7 +17,8 @@ class SaleService {
     private final ProductFacade productFacade;
 
     Long createSale(Sale sale) {
-        getProductById(sale.getProductId());
+        ProductDto productDto = getProductById(sale.getProductId());
+        sale.setUserId(productDto.getUserId());
         return saleRepository.save(sale).getId();
     }
 

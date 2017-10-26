@@ -7,11 +7,15 @@ class ProductTestData {
     static def NEW_PRODUCT_NAME = "AllStar"
     static ProductDto productDto0 = ProductDto.builder()
             .name("Yeezy")
-            .userId(UserTestData.USER_ID_1)
             .build()
     static ProductDto createdProductDto0 =  ProductDto.builder()
             .name(productDto0.name)
-            .userId(productDto0.userId)
+            .userId(UserTestData.USER_ID_1)
             .id(1000)
+            .build()
+    static ProductDto createdProductDto1 =  ProductDto.builder()
+            .name(productDto0.name)
+            .userId(UserTestData.USER_ID_2)
+            .id(2000)
             .build()
 }

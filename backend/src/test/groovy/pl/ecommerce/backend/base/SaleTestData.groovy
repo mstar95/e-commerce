@@ -8,4 +8,6 @@ class SaleTestData {
     static SaleInDto newProductSaleInDto0 = SaleInDto.builder().build()
     static SaleInDto existingProductSaleInDto0 = SaleInDto.builder()
             .productId(ProductTestData.createdProductDto0.id).build()
+    static SaleInDto existingProductSaleInDto1 = SaleInDto.builder()
+            .productId(ProductTestData.createdProductDto1.id).build()
 }

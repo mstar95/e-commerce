@@ -28,6 +28,6 @@ public class AuctionFacade {
     }
 
     public List<AuctionOutDto> findByUserId(Long userId) {
-        return auctionService.findByUserId(userId);
+        return auctionService.findByUserId(Optional.ofNullable(userId));
     }
 }

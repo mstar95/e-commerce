@@ -8,4 +8,6 @@ class AuctionTestData {
     static AuctionInDto newProductAuctionInDto0 = AuctionInDto.builder().build()
     static AuctionInDto existingProductAuctionInDto0 = AuctionInDto.builder()
             .productId(ProductTestData.createdProductDto0.id).build()
+    static AuctionInDto existingProductAuctionInDto1 = AuctionInDto.builder()
+            .productId(ProductTestData.createdProductDto1.id).build()
 }

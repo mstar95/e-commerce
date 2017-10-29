@@ -12,6 +12,7 @@ import java.util.Optional;
 public class SaleFacade {
 
     private final SaleService saleService;
+    private final SalePaymentsService salePaymentsService;
 
     public Long createSale(SaleInDto saleInDto) {
         Sale sale = SaleFactory.createSale(saleInDto);
@@ -21,6 +22,10 @@ public class SaleFacade {
     public Long createSaleOfNewProduct(SaleInDto saleInDto, ProductDto productDto) {
         Sale sale = SaleFactory.createSale(saleInDto, productDto);
         return saleService.createSaleOfNewProduct(sale, productDto);
+    }
+
+    public void finalizeSale(SaleInDto saleInDto) {
+        salePaymentsService.finalizeSale(saleInDto);
     }
 
     public Optional<SaleOutDto> find(Long saleId) {

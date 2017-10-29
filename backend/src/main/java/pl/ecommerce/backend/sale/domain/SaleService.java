@@ -1,9 +1,9 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.RequiredArgsConstructor;
-import pl.ecommerce.backend.auction.exceptions.AuctionCreationException;
 import pl.ecommerce.backend.product.domain.ProductFacade;
 import pl.ecommerce.backend.product.dto.ProductDto;
+import pl.ecommerce.backend.sale.dto.SaleInDto;
 import pl.ecommerce.backend.sale.dto.SaleOutDto;
 import pl.ecommerce.backend.sale.exceptions.SaleCreationException;
 import pl.ecommerce.backend.user.domain.UserFacade;

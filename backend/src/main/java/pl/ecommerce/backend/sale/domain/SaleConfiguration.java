@@ -11,6 +11,7 @@ class SaleConfiguration {
                           ProductFacade productFacade,
                           UserFacade userFacade){
         SaleService saleService = new SaleService(saleRepository, productFacade, userFacade);
-        return new SaleFacade(saleService);
+        SalePaymentsService salePaymentsService = new SalePaymentsService();
+        return new SaleFacade(saleService, salePaymentsService);
     }
 }

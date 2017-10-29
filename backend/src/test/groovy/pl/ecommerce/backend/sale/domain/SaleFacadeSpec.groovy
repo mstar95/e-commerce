@@ -14,8 +14,9 @@ class SaleFacadeSpec extends Specification {
     def saleRepositoryStub = new SaleInMemoryRepository()
     def productFacadeStub = Stub(ProductFacade)
     def userFacadeStub = Stub(UserFacade)
-    def saleServiceStub = new SaleService(saleRepositoryStub, productFacadeStub, userFacadeStub)
-    def saleFacade = new SaleFacade(saleServiceStub)
+    def saleService = new SaleService(saleRepositoryStub, productFacadeStub, userFacadeStub)
+    def salePaymentsService = new SalePaymentsService()
+    def saleFacade = new SaleFacade(saleService, salePaymentsService)
 
     def setup() {
         productFacadeStub.createProduct(_ as ProductDto) >> ProductTestData.createdProductDto0.id
@@ -87,4 +88,21 @@ class SaleFacadeSpec extends Specification {
         then:
         sales.empty
     }
+
+    def "Should finalize sale"() {
+        given:
+        def saleDto = SaleTestData.existingProductSaleInDto0
+        def productDto = ProductTestData.createdProductDto0
+        def saleId = saleFacade.createSale(saleDto)
+        when:
+        saleFacade.finalizeSale(SaleTestData.existingProductSaleInDto0)
+        def saleOpt = saleFacade.find(saleId)
+        then:
+        saleOpt.isPresent()
+        def sale = saleOpt.get()
+        sale.id == saleId
+        sale.userId == productDto.userId
+        sale.name == productDto.getName()
+    }
+
 }

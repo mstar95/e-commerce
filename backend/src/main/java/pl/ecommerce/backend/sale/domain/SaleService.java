@@ -65,5 +65,4 @@ class SaleService {
         return productFacade.find(productId)
                 .orElseThrow(() -> new SaleCreationException("Product with id " + productId + " not exist"));
     }
-
 }

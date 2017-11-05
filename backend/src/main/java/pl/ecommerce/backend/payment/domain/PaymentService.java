@@ -1,8 +1,10 @@
 package pl.ecommerce.backend.payment.domain;
 
 import lombok.RequiredArgsConstructor;
+import pl.ecommerce.backend.payment.dtos.AmountAfterTransferDto;
 import pl.ecommerce.backend.payment.dtos.ChargePointsDto;
 import pl.ecommerce.backend.payment.dtos.ReducePointsDto;
+import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
 import pl.ecommerce.backend.payment.exceptions.CreateWalletException;
 import pl.ecommerce.backend.payment.exceptions.FindWalletException;
 import pl.ecommerce.backend.payment.exceptions.ReducePointsException;
@@ -34,7 +36,7 @@ class PaymentService {
     BigDecimal chargePoints(ChargePointsDto chargePointsDto) {
         Wallet wallet = walletRepository.findByUserId(chargePointsDto.getUserId())
                 .orElseThrow(() -> new FindWalletException(chargePointsDto.getUserId()));
-        BigDecimal points = wallet.getPoints().add(chargePointsDto.getAmount());
+        BigDecimal points = addPoints(chargePointsDto.getAmount(), wallet);
         wallet.setPoints(points);
         return points;
     }
@@ -42,12 +44,34 @@ class PaymentService {
     BigDecimal reducePoints(ReducePointsDto reducePointsDto) {
         Wallet wallet = walletRepository.findByUserId(reducePointsDto.getUserId())
                 .orElseThrow(() -> new FindWalletException(reducePointsDto.getUserId()));
-        BigDecimal points = wallet.getPoints().subtract(reducePointsDto.getAmount());
-        if(points.signum() == -1) {
-            throw new ReducePointsException(wallet.getPoints(), reducePointsDto);
-        }
+        BigDecimal points = substractPoints(reducePointsDto.getAmount(), wallet);
         wallet.setPoints(points);
         return points;
+    }
+
+    AmountAfterTransferDto transferPoints(TransferPointsDto transferPointsDto) {
+        Wallet walletFrom = walletRepository.findByUserId(transferPointsDto.getFromId())
+                .orElseThrow(() -> new FindWalletException(transferPointsDto.getFromId()));
+        Wallet walletTo = walletRepository.findByUserId(transferPointsDto.getToId())
+                .orElseThrow(() -> new FindWalletException(transferPointsDto.getToId()));
+
+        BigDecimal pointsFrom = substractPoints(transferPointsDto.getAmount(), walletFrom);
+        BigDecimal pointsTo = addPoints(transferPointsDto.getAmount(), walletTo);
+        walletFrom.setPoints(pointsFrom);
+        walletTo.setPoints(pointsTo);
+        return WalletFactory.createAmountAfterTransferDto(transferPointsDto, pointsFrom, pointsTo);
+    }
+
+    private BigDecimal substractPoints(BigDecimal reducePoints, Wallet wallet) {
+        BigDecimal points = wallet.getPoints().subtract(reducePoints);
+        if(points.signum() == -1) {
+            throw new ReducePointsException(wallet.getPoints(), reducePoints, wallet.getUserId());
+        }
+        return points;
+    }
+
+    private BigDecimal addPoints(BigDecimal chargePoints, Wallet wallet) {
+        return wallet.getPoints().add(chargePoints);
     }
 
     private void validateUserId(Long userId) {

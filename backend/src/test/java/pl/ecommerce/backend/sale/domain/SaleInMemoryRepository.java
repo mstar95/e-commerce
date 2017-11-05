@@ -24,4 +24,9 @@ class SaleInMemoryRepository extends InMemoryRepository<Sale> implements SaleRep
                 .filter(auction -> userId.equals(auction.getId()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.remove(id);
+    }
 }

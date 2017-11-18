@@ -20,4 +20,6 @@ public class ArchivedSaleDto {
     private String name;
     private BigDecimal price;
     private LocalDateTime transactionDate;
+    private Boolean multi;
+    private Integer amount;
 }

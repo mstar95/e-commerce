@@ -13,4 +13,6 @@ public class SaleInDto {
     private Long id;
     private Long productId;
     private BigDecimal price;
+    private boolean multi;
+    private Integer amount;
 }

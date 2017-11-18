@@ -25,17 +25,10 @@ class SaleService {
         return saleRepository.save(sale).getId();
     }
 
-    private void validateAndSetUserId(Sale sale, ProductDto productDto) {
-        Long currentUserId = userFacade.getCurrentUserId();
-        if (!productDto.getUserId().equals(currentUserId)) {
-            throw new SaleCreationException("Current user is not owner of product with id:" + productDto.getId());
-        }
-        sale.setUserId(productDto.getUserId());
-    }
-
     Long createSaleOfNewProduct(Sale sale, ProductDto productDto) {
         Long productId = productFacade.createProduct(productDto);
         sale.setProductId(productId);
+        sale.setUserId(userFacade.getCurrentUserId());
         return saleRepository.save(sale).getId();
     }
 
@@ -54,6 +47,14 @@ class SaleService {
         return sales.stream()
                 .map(this::getProductByIdAndMergeWithSale)
                 .collect(Collectors.toList());
+    }
+
+    private void validateAndSetUserId(Sale sale, ProductDto productDto) {
+        Long currentUserId = userFacade.getCurrentUserId();
+        if (!productDto.getUserId().equals(currentUserId)) {
+            throw new SaleCreationException("Current user is not owner of product with id:" + productDto.getId());
+        }
+        sale.setUserId(productDto.getUserId());
     }
 
     private SaleOutDto getProductByIdAndMergeWithSale(Sale sale){

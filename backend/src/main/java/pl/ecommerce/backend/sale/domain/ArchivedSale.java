@@ -22,4 +22,6 @@ class ArchivedSale {
     private Long productId;
     private BigDecimal price;
     private Timestamp transactionDate;
+    private Boolean multi;
+    private Integer amount;
 }

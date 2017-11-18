@@ -18,4 +18,6 @@ class Sale {
     private Long userId;
     private Long productId;
     private BigDecimal price;
+    private Boolean multi;
+    private Integer amount;
 }

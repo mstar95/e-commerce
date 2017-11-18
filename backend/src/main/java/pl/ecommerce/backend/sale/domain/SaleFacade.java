@@ -3,6 +3,7 @@ package pl.ecommerce.backend.sale.domain;
 import lombok.RequiredArgsConstructor;
 import pl.ecommerce.backend.product.dto.ProductDto;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
+import pl.ecommerce.backend.sale.dto.FinalizeSaleDto;
 import pl.ecommerce.backend.sale.dto.SaleInDto;
 import pl.ecommerce.backend.sale.dto.SaleOutDto;
 
@@ -25,8 +26,8 @@ public class SaleFacade {
         return saleService.createSaleOfNewProduct(sale, productDto);
     }
 
-    public Optional<ArchivedSaleDto> finalizeSale(Long saleId) {
-        return salePaymentsService.finalizeSale(saleId);
+    public Optional<ArchivedSaleDto> finalizeSale(FinalizeSaleDto finalizeSaleDto) {
+        return salePaymentsService.finalizeSale(finalizeSaleDto);
     }
 
     public Optional<SaleOutDto> find(Long saleId) {

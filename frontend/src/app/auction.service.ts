@@ -2,24 +2,71 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
+
 import { MessageService } from './message.service';
 import {Auction} from './model/auction';
-import { AUCTIONS } from './model/mock-auctions';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 
 @Injectable()
 export class AuctionService {
 
+  private auctionsUrl = 'api/auctions';  // URL to web api
+
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService) { }
+
   getAuction(id: number): Observable<Auction> {
-    // Todo: send the message _after_ fetching the hero
-    this.messageService.add(`HeroService: fetched hero id=${id}`);
-    return of(AUCTIONS.find(hero => hero.id === id));
+    const url = `${this.auctionsUrl}/${id}`;
+    return this.http.get<Auction>(url).pipe(
+      tap(_ => this.log(`fetched hero id=${id}`)),
+      catchError(this.handleError<Auction>(`getAuction id=${id}`))
+    );
   }
 
   getAuctions(): Observable<Auction[]> {
-    this.messageService.add('AuctionService: fetched auctions');
-    return of(AUCTIONS);
+    this.log('AuctionService: fetched auctions');
+    return this.http.get<Auction[]>(this.auctionsUrl)
+      .pipe(
+        catchError(this.handleError('getAuctions', []))
+      );
   }
 
-  constructor(private messageService: MessageService) { }
+  saveAuction (auction: Auction): Observable<any> {
+    return this.http.put(this.auctionsUrl, auction, httpOptions).pipe(
+      tap(_ => this.log(`updated auction id=${auction.id}`)),
+      catchError(this.handleError<any>('saveAuction'))
+    );
+  }
+
+  private log(message: string) {
+    this.messageService.add('HeroService: ' + message);
+  }
+
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 
 }

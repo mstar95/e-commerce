@@ -29,6 +29,11 @@ export class AuctionDetailComponent implements OnInit {
       .subscribe(auction => this.auction = auction);
   }
 
+  save(): void {
+    this.auctionService.saveAuction(this.auction)
+      .subscribe(() => this.goBack());
+  }
+
   goBack(): void {
     this.location.back();
   }

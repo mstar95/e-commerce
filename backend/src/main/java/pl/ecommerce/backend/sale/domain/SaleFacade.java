@@ -37,4 +37,8 @@ public class SaleFacade {
     public List<SaleOutDto> findByUserId(long userId) {
         return saleService.findByUserId(userId);
     }
+
+    public List<SaleOutDto> getSales() {
+        return saleService.getSales();
+    }
 }

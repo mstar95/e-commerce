@@ -66,4 +66,10 @@ class SaleService {
         return productFacade.find(productId)
                 .orElseThrow(() -> new SaleCreationException("Product with id " + productId + " not exist"));
     }
+
+    public List<SaleOutDto> getSales() {
+        return saleRepository.findAll().stream()
+                .map(this::getProductByIdAndMergeWithSale)
+                .collect(Collectors.toList());
+    }
 }

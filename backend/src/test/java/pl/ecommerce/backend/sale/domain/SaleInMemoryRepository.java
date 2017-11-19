@@ -2,6 +2,7 @@ package pl.ecommerce.backend.sale.domain;
 
 import pl.ecommerce.backend.repository.InMemoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,5 +29,10 @@ class SaleInMemoryRepository extends InMemoryRepository<Sale> implements SaleRep
     @Override
     public void deleteById(Long id) {
         repository.remove(id);
+    }
+
+    @Override
+    public List<Sale> findAll() {
+        return new ArrayList<>(repository.values());
     }
 }

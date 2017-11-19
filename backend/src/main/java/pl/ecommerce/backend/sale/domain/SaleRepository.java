@@ -10,4 +10,5 @@ interface SaleRepository extends Repository<Sale, Long> {
     Optional<Sale> findById(Long id);
     List<Sale> findSalesByUserId(Long userId);
     void deleteById(Long id);
+    List<Sale>  findAll();
 }

@@ -1,0 +1,10 @@
+<h2>My Auctions</h2>
+
+<ul class="auctions">
+  <li *ngFor="let auction of auctions">
+    <a routerLink="/detail/{{auction.id}}">
+      <span class="badge">{{auction.id}}</span> {{auction.name}}
+    </a>
+  </li>
+</ul>
+

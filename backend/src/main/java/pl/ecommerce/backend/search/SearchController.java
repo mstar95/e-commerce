@@ -4,6 +4,7 @@ import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.ecommerce.backend.sale.dto.SaleOutDto;
 import pl.ecommerce.backend.search.domain.SearchFacade;
@@ -12,7 +13,8 @@ import java.util.List;
 
 
 @RequiredArgsConstructor
-@RestController("/search")
+@RestController
+@RequestMapping(path = "/api/search")
 public class SearchController {
 
     private final SearchFacade searchFacade;

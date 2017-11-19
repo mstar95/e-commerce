@@ -1,0 +1,13 @@
+<div id="search-component">
+  <h4>Search Auction</h4>
+
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let auction of auctions$ | async" >
+      <a routerLink="/detail/{{auction.id}}">
+        {{auction.name}}
+      </a>
+    </li>
+  </ul>
+</div>

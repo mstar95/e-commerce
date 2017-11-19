@@ -2,6 +2,7 @@ package pl.ecommerce.backend.product.domain
 
 import pl.ecommerce.backend.base.ProductTestData
 import pl.ecommerce.backend.base.UserTestData
+import pl.ecommerce.backend.product.dto.ProductDto
 import pl.ecommerce.backend.user.domain.UserFacade
 import spock.lang.Specification
 
@@ -36,8 +37,7 @@ class ProductFacadeSpec extends Specification{
         def productName = ProductTestData.NEW_PRODUCT_NAME
         when:
         def productId = productFacade.createProduct(dto)
-        dto.setId(productId)
-        dto.setName(productName)
+        dto = new ProductDto(productId, dto.userId, productName)
         def updatedProductId = productFacade.createProduct(dto)
         def productOpt = productFacade.find(productId)
         then:

@@ -12,6 +12,7 @@ import {MessageService} from './message.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 
 import {AppRoutingModule} from './/app-routing.module';
+import { AuctionSearchComponent } from './auction-search/auction-search.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {AppRoutingModule} from './/app-routing.module';
     AuctionsComponent,
     AuctionDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    AuctionSearchComponent
   ],
   imports: [
     BrowserModule,

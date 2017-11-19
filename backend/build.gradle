@@ -32,13 +32,13 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.boot:spring-boot-starter-security')
+	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile 'org.projectlombok:lombok:1.16.18'
 	compile 'io.vavr:vavr:0.9.1'
 	runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.security:spring-security-test')
+//	testCompile('org.springframework.security:spring-security-test')
 	testCompile("org.codehaus.groovy:groovy-all:2.4.5")
 	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
 

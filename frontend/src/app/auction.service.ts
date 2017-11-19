@@ -16,7 +16,7 @@ const httpOptions = {
 @Injectable()
 export class AuctionService {
 
-  private auctionsUrl = 'api/auctions';  // URL to web api
+  private auctionsUrl = 'api/search';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -32,7 +32,7 @@ export class AuctionService {
 
   getAuctions(): Observable<Auction[]> {
     this.log('AuctionService: fetched auctions');
-    return this.http.get<Auction[]>(this.auctionsUrl)
+    return this.http.get<Auction[]>(this.auctionsUrl + '/all')
       .pipe(
         catchError(this.handleError('getAuctions', []))
       );
@@ -42,6 +42,18 @@ export class AuctionService {
     return this.http.put(this.auctionsUrl, auction, httpOptions).pipe(
       tap(_ => this.log(`updated auction id=${auction.id}`)),
       catchError(this.handleError<any>('saveAuction'))
+    );
+  }
+
+  /* GET heroes whose name contains search term */
+  searchAuction(term: string): Observable<Auction[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Auction[]>(`api/search/?name=${term}`).pipe(
+      tap(_ => this.log(`found auction matching "${term}"`)),
+      catchError(this.handleError<Auction[]>('searchAuctions', []))
     );
   }
 

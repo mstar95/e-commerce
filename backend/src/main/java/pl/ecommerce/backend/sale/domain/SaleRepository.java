@@ -8,7 +8,5 @@ import java.util.Optional;
 interface SaleRepository extends Repository<Sale, Long> {
     Sale save(Sale entity);
     Optional<Sale> findById(Long id);
-    List<Sale> findSalesByUserId(Long userId);
     void deleteById(Long id);
-    List<Sale>  findAll();
 }

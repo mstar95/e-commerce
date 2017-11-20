@@ -1,98 +1,58 @@
 package pl.ecommerce.backend.sale.domain;
 
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
-import pl.ecommerce.backend.product.dto.ProductDto;
-import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
-import pl.ecommerce.backend.sale.dto.SaleInDto;
-import pl.ecommerce.backend.sale.dto.SaleOutDto;
-import pl.ecommerce.backend.sale.exceptions.SaleInDtoArgumentsException;
+import pl.ecommerce.backend.sale.dto.*;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 class SaleFactory {
 
-    static Sale createSale(SaleInDto saleInDto) {
-        return createSaleBuilder(saleInDto)
+    static Sale createSale(CreateSaleDto createSaleDto) {
+        return Sale.builder()
+                .name(createSaleDto.getName())
+                .image(createSaleDto.getImage())
+                .price(createSaleDto.getPrice())
+                .auction(false)
                 .build();
     }
 
-    static Sale createSale(SaleInDto saleInDto, ProductDto productDto) {
-        return createSaleBuilder(saleInDto)
-                .userId(productDto.getUserId())
-                .build();
+    static Sale createSale(CreateAuctionDto createAuctionDto) {
+        return Sale.builder()
+                .name(createAuctionDto.getName())
+                .image(createAuctionDto.getImage())
+                .price(createAuctionDto.getPrice())
+                .auction(true)
+                .deadLine(Timestamp.valueOf(createAuctionDto.getDeadLine())).build();
     }
 
-    static SaleOutDto createSaleOutDto(Sale sale, ProductDto productDto) {
-        return SaleOutDto.builder()
-                .id(sale.getId())
-                .userId(sale.getUserId())
-                .productId(productDto.getId())
-                .name(productDto.getName())
-                .price(sale.getPrice())
-                .amount(sale.getAmount())
-                .multi(sale.getMulti())
-                .build();
-    }
-
-    static TransferPointsDto createTransferPointsDto(Sale sale, Long fromId, BigDecimal price) {
+    static TransferPointsDto createTransferPointsDto(Sale sale, Long fromId) {
         return TransferPointsDto.builder()
                 .fromId(fromId)
                 .toId(sale.getId())
-                .amount(price)
+                .amount(sale.getPrice())
                 .build();
     }
 
-    static ArchivedSale createArchivedSale(Sale sale, Long clientId, LocalDateTime transactionDate,Integer amount) {
-        return ArchivedSale.builder()
-                .oldId(sale.getId())
-                .ownerId(sale.getUserId())
-                .clientId(clientId)
-                .price(sale.getPrice())
-                .productId(sale.getProductId())
-                .transactionDate(Timestamp.valueOf(transactionDate))
-                .multi(sale.getMulti())
-                .amount(amount)
-                .build();
-    }
-
-    static ArchivedSaleDto createArchivedSaleDto(ArchivedSale sale, ProductDto productDto) {
+    static ArchivedSaleDto createArchivedSaleDto(ArchivedSale archivedSale) {
         return ArchivedSaleDto.builder()
-                .oldId(sale.getOldId())
-                .clientId(sale.getClientId())
-                .ownerId(sale.getOwnerId())
-                .price(sale.getPrice())
-                .productId(sale.getProductId())
-                .name(productDto.getName())
-                .transactionDate(sale.getTransactionDate().toLocalDateTime())
-                .multi(sale.getMulti())
-                .amount(sale.getAmount())
-                .build();
+                .ownerId(archivedSale.getOwnerId())
+                .clientId(archivedSale.getClientId())
+                .price(archivedSale.getPrice())
+                .name(archivedSale.getName())
+                .image(archivedSale.getImage())
+                .transactionDate(archivedSale.getTransactionDate()).build();
     }
 
-    private static Sale.SaleBuilder createSaleBuilder(SaleInDto saleInDto) {
-        Sale.SaleBuilder saleBuilder = Sale.builder()
-                .id(saleInDto.getId())
-                .productId(saleInDto.getProductId())
-                .price(saleInDto.getPrice())
-                .multi(saleInDto.isMulti());
+    static ArchivedSale createArchivedSale(Sale sale, Long currentUserId, LocalDateTime currentDate) {
+        return ArchivedSale.builder()
+                .name(sale.getName())
+                .image(sale.getImage())
+                .price(sale.getPrice())
+                .ownerId(sale.getUserId())
+                .clientId(currentUserId)
+                .auction(sale.isAuction())
+                .transactionDate(Timestamp.valueOf(currentDate)).build();
 
-        Integer amount = saleInDto.getAmount();
-        if (saleInDto.isMulti()) {
-            if (amount == null) {
-                throw new SaleInDtoArgumentsException("sale is multi but amount is null");
-            } else if(amount < 1){
-                throw new SaleInDtoArgumentsException("sale is multi but amount is 0");
-            }
-            saleBuilder.amount(amount);
-        } else {
-            if (amount == null || amount == 1) {
-                saleBuilder.amount(1);
-            } else {
-                throw new SaleInDtoArgumentsException("sale is single but amount is not single");
-            }
-        }
-        return saleBuilder;
     }
 }

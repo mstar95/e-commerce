@@ -1,13 +1,9 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.RequiredArgsConstructor;
-import pl.ecommerce.backend.product.dto.ProductDto;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
-import pl.ecommerce.backend.sale.dto.FinalizeSaleDto;
-import pl.ecommerce.backend.sale.dto.SaleInDto;
-import pl.ecommerce.backend.sale.dto.SaleOutDto;
+import pl.ecommerce.backend.sale.dto.CreateSaleDto;
 
-import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -16,29 +12,18 @@ public class SaleFacade {
     private final SaleService saleService;
     private final SalePaymentsService salePaymentsService;
 
-    public Long createSale(SaleInDto saleInDto) {
-        Sale sale = SaleFactory.createSale(saleInDto);
+    public Long createSale(CreateSaleDto createSaleDto) {
+        Sale sale = SaleFactory.createSale(createSaleDto);
         return saleService.createSale(sale);
     }
 
-    public Long createSaleOfNewProduct(SaleInDto saleInDto, ProductDto productDto) {
-        Sale sale = SaleFactory.createSale(saleInDto, productDto);
-        return saleService.createSaleOfNewProduct(sale, productDto);
+    public Long createAuction(CreateSaleDto createSaleDto) {
+        Sale sale = SaleFactory.createSale(createSaleDto);
+        return saleService.createAuction(sale);
     }
 
-    public Optional<ArchivedSaleDto> finalizeSale(FinalizeSaleDto finalizeSaleDto) {
-        return salePaymentsService.finalizeSale(finalizeSaleDto);
+    public Optional<ArchivedSaleDto> finalizeSale(Long id) {
+        return salePaymentsService.finalizeSale(id);
     }
 
-    public Optional<SaleOutDto> find(Long saleId) {
-        return saleService.find(saleId);
-    }
-
-    public List<SaleOutDto> findByUserId(long userId) {
-        return saleService.findByUserId(userId);
-    }
-
-    public List<SaleOutDto> getSales() {
-        return saleService.getSales();
-    }
 }

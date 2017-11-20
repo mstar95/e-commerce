@@ -5,21 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Data
 @Builder
 @AllArgsConstructor
 public class ArchivedSaleDto {
     private Long id;
-    private Long oldId;
-    private Long ownerId;
-    private Long clientId;
-    private Long productId;
+    private byte[] image;
     private String name;
     private BigDecimal price;
-    private LocalDateTime transactionDate;
-    private Boolean multi;
-    private Integer amount;
+    private Boolean auction;
+    private Long ownerId;
+    private Long clientId;
+    private Timestamp transactionDate;
 }

@@ -11,10 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SaleOutDto {
     private Long id;
-    private Long userId;
-    private Long productId;
+    private byte[] image;
     private String name;
     private BigDecimal price;
-    private Boolean multi;
-    private Integer amount;
+    private Boolean auction;
 }

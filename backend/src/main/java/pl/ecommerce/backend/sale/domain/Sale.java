@@ -6,7 +6,9 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 @Data
 @Builder
@@ -15,9 +17,11 @@ import java.math.BigDecimal;
 class Sale {
     @Id
     private Long id;
+    private String name;
+    private byte[] image;
     private Long userId;
-    private Long productId;
     private BigDecimal price;
-    private Boolean multi;
-    private Integer amount;
+    private Timestamp created;
+    private Timestamp deadLine;
+    private boolean auction;
 }

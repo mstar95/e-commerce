@@ -8,9 +8,9 @@ import pl.ecommerce.backend.user.domain.UserFacade;
 class PaymentConfiguration {
 
     @Bean
-    PaymentFacade paymentFacade(WalletRepository walletRepository, UserFacade userFacade){
+    PaymentFacade paymentFacade(WalletRepository walletRepository){
 
-        PaymentService paymentService = new PaymentService(walletRepository, userFacade);
+        PaymentService paymentService = new PaymentService(walletRepository);
         return new PaymentFacade(paymentService);
     }
 

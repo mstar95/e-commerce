@@ -1,11 +1,13 @@
 package pl.ecommerce.backend.sale.domain;
 
+import lombok.experimental.UtilityClass;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
 import pl.ecommerce.backend.sale.dto.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@UtilityClass
 class SaleFactory {
 
     static Sale createSale(CreateSaleDto createSaleDto) {

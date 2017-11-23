@@ -1,23 +1,22 @@
-package pl.ecommerce.backend.payment.domain;
+package pl.ecommerce.backend.user.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
+
+import javax.persistence.Entity;
 
 @Data
-@Builder
-@AllArgsConstructor
 @Entity
-class Wallet {
+@Builder
+class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long userId;
-    private BigDecimal points;
+    private String name;
+    private String password;
+    private Long rating;
 }

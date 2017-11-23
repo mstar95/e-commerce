@@ -15,10 +15,8 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 class PaymentService {
     private final WalletRepository walletRepository;
-    private final UserFacade userFacade;
 
     Long createWallet(Long userId) {
-        validateUserId(userId);
         walletRepository.findByUserId(userId)
                 .ifPresent((wallet)-> throwCreateWalletException("Cant create second wallet for user with id:" + userId));
         Wallet wallet = WalletFactory.createWallet(userId);
@@ -27,7 +25,6 @@ class PaymentService {
 
 
     BigDecimal getAmountByUserID(Long userId) {
-        validateUserId(userId);
         return walletRepository.findByUserId(userId)
                 .orElseThrow(() -> new FindWalletException(userId))
                 .getPoints();
@@ -72,13 +69,6 @@ class PaymentService {
 
     private BigDecimal addPoints(BigDecimal chargePoints, Wallet wallet) {
         return wallet.getPoints().add(chargePoints);
-    }
-
-    private void validateUserId(Long userId) {
-        Long currentUserId = userFacade.getCurrentUserId();
-        if(userId == null || !userId.equals(currentUserId)) {
-            throwCreateWalletException("There is no user with id:" + userId);
-        }
     }
 
     private void throwCreateWalletException(String s){

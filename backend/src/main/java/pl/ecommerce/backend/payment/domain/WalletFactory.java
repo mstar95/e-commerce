@@ -1,10 +1,12 @@
 package pl.ecommerce.backend.payment.domain;
 
+import lombok.experimental.UtilityClass;
 import pl.ecommerce.backend.payment.dtos.AmountAfterTransferDto;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
 
 import java.math.BigDecimal;
 
+@UtilityClass
 class WalletFactory {
 
     static Wallet createWallet(Long userId) {

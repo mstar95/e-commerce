@@ -4,19 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import pl.ecommerce.backend.user.domain.UserFacade;
+
+import java.util.Collections;
 
 @Component
 @RequiredArgsConstructor
 class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserFacade userFacade;
+    private final UserCredentialsRepository userCredentialsRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-       return new UserDetailsImpl() ;
-
+        UserCredentials userCredentials = userCredentialsRepository.getUserCredentialsByName(username);
+        return new User(userCredentials.getName(), userCredentials.getPassword(), Collections.EMPTY_LIST);
     }
 }

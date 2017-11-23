@@ -6,9 +6,8 @@ import pl.ecommerce.backend.user.domain.UserFacade
 import spock.lang.Specification
 
 class TransferPointsSpec  extends Specification {
-    def userFacadeStub = Stub(UserFacade)
     def walletRepository = Stub(WalletInMemoryRepository)
-    def paymentService = new PaymentService(walletRepository, userFacadeStub)
+    def paymentService = new PaymentService(walletRepository)
     def paymentFacade = new PaymentFacade(paymentService)
 
     def setup() {

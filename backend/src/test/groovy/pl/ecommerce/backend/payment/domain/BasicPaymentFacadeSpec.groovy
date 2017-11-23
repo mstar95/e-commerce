@@ -11,7 +11,7 @@ import spock.lang.Specification
 class BasicPaymentFacadeSpec  extends Specification {
     def userFacadeStub = Stub(UserFacade)
     def walletRepository = new WalletInMemoryRepository()
-    def paymentService = new PaymentService(walletRepository, userFacadeStub)
+    def paymentService = new PaymentService(walletRepository)
     def paymentFacade = new PaymentFacade(paymentService)
 
     def setup() {

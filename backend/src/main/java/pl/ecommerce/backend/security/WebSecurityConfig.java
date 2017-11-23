@@ -64,8 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth/**").permitAll()
-             //   .antMatchers("/sale/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/**").permitAll()
+                .antMatchers("/sale/**").permitAll()
+                .antMatchers("/lol/**").authenticated();
 
         httpSecurity.addFilterBefore(loginFilterBean(),
                 UsernamePasswordAuthenticationFilter.class);

@@ -6,7 +6,6 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 

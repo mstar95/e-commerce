@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
@@ -16,6 +18,10 @@ public class TimeManager {
 
     public Timestamp getCurrentTimestamp(){
         return Timestamp.valueOf(getCurrentDate());
+    }
+
+    public Date localDateTimeToDate (LocalDateTime localDateTime){
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
 }

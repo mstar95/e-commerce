@@ -2,7 +2,7 @@ import { Component, OnInit, Input  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import {Auction} from '../model/auction';
+import {Auction} from '../auction';
 import {AuctionService} from '../auction.service';
 
 @Component({

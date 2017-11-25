@@ -8,7 +8,7 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 
-import { Auction } from '../model/auction';
+import { Auction } from '../auction';
 import { AuctionService } from '../auction.service';
 
 @Component({

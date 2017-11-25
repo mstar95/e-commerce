@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuctionService } from '../auction.service';
-import {Auction} from '../model/auction';
+import {Auction} from '../auction';
 
 @Component({
   selector: 'app-auctions',
@@ -9,13 +10,14 @@ import {Auction} from '../model/auction';
 })
 export class AuctionsComponent implements OnInit {
 
-  constructor(private auctionService: AuctionService) { }
+  constructor(private router: Router, private auctionService: AuctionService) { }
 
   auctions: Auction[];
 
   getAuctions(): void {
     this.auctionService.getAuctions()
-      .subscribe(auctions => this.auctions = auctions);
+      .subscribe(auctions => this.auctions = auctions,
+        () => this.router.navigate(['login']));
   }
 
   ngOnInit() {

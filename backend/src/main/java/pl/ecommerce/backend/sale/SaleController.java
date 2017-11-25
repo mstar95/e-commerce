@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/sale")
+@RequestMapping("/api/sale")
 public class SaleController {
 
     private final QuerySaleRepository querySaleRepository;

@@ -47,13 +47,6 @@ class BasicPaymentFacadeSpec  extends Specification {
         thrown(ReducePointsException.class)
     }
 
-    def "should throw a wallet creation exception"() {
-        when:
-        paymentFacade.createWallet(UserTestData.USER_ID_2)
-        then:
-        thrown(CreateWalletException.class)
-    }
-
     def "should throw a wallet creation exception 2"() {
         given:
         paymentFacade.createWallet(UserTestData.USER_ID_1)

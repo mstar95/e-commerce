@@ -1,12 +1,11 @@
-///<reference path="model/mock-auctions.ts"/>
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { MessageService } from './message.service';
-import {Auction} from './model/auction';
+import { MessageService } from '../message.service';
+import {Auction} from './auction';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class AuctionService {
 
-  private auctionsUrl = 'api/search';  // URL to web api
+  private auctionsUrl = 'api/sale';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -32,10 +31,7 @@ export class AuctionService {
 
   getAuctions(): Observable<Auction[]> {
     this.log('AuctionService: fetched auctions');
-    return this.http.get<Auction[]>(this.auctionsUrl + '/all')
-      .pipe(
-        catchError(this.handleError('getAuctions', []))
-      );
+    return this.http.get<Auction[]>(this.auctionsUrl + '/all');
   }
 
   saveAuction (auction: Auction): Observable<any> {

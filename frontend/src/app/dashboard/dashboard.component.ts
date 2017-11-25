@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Auction } from '../model/auction';
-import { AuctionService } from '../auction.service';
+import { Auction } from '../auction/auction';
+import { AuctionService } from '../auction/auction.service';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,6 +1,7 @@
 package pl.ecommerce.backend.user.domain;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.ecommerce.backend.payment.domain.PaymentFacade;
 
@@ -23,4 +24,12 @@ class UserService {
         user.setPassword(passwordEncoder.encode(password));
     }
 
+    String getCurrentUserName() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    Long getCurrentUserId() {
+        String name = getCurrentUserName();
+        return userRepository.getUserByName(name).getId();
+    }
 }

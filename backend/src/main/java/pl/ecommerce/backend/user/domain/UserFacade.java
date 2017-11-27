@@ -12,7 +12,11 @@ public class UserFacade {
         return userService.createUser(UserFactory.createUser(createUserDto));
     }
 
+    public String getCurrentUserName() {
+        return userService.getCurrentUserName();
+    }
+
     public Long getCurrentUserId() {
-        return null;
+        return userService.getCurrentUserId();
     }
 }

@@ -1,15 +1,12 @@
 package pl.ecommerce.backend.user;
 
-import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ecommerce.backend.user.domain.UserFacade;
 import pl.ecommerce.backend.user.dto.CreateUserDto;
-import pl.ecommerce.backend.user.query.QueryUser;
-import pl.ecommerce.backend.user.query.QueryUserRepository;
-
-import java.util.List;
+import pl.ecommerce.backend.user.query.UserOutDto;
+import pl.ecommerce.backend.user.query.QueryUserProfileRepository;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +14,7 @@ import java.util.List;
 public class UserController {
 
     private final UserFacade userFacade;
-    private final QueryUserRepository queryUserRepository;
+    private final QueryUserProfileRepository queryUserRepository;
 
     @PostMapping(value = "/create")
     public ResponseEntity<Long> create(@RequestBody CreateUserDto createUserDto) {
@@ -25,11 +22,9 @@ public class UserController {
 
     }
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<QueryUser> all() {
-      /*  return Try.of(querySaleRepository::findAll)
-                .map(ResponseEntity::ok)
-                .getOrElse(ResponseEntity.badRequest().body(null)); */
-        return  ResponseEntity.ok(queryUserRepository.findUser(1L));
+    @GetMapping(value = "/current")
+    public ResponseEntity<UserOutDto> current() {
+        String name = userFacade.getCurrentUserName();
+        return ResponseEntity.ok(queryUserRepository.findQueryUserByName(name));
     }
 }

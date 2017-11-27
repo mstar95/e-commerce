@@ -1,22 +1,14 @@
 package pl.ecommerce.backend.user.query;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
 @Data
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "user")
-class QueryUser {
-    @Id
-    private Long id;
+public class UserOutDto {
     private String name;
     private Long rating;
+    private BigDecimal points;
 }

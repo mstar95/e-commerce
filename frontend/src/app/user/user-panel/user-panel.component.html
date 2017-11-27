@@ -1,0 +1,11 @@
+<div *ngIf="user">
+  <div>
+    <label>login: {{user.name}}</label>
+    <label>punkty: {{user.points}}</label>
+  </div>
+  <button (click)="goMyAccount()">Szczególy konta</button>
+</div>
+<div *ngIf="!user">
+  <button (click)="addAuction()">Zaloguj sie</button>
+</div>
+

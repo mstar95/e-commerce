@@ -13,10 +13,12 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
-class QueryUser {
+@Table(name = "wallet")
+class QueryUserInfo {
     @Id
     private Long id;
-    private String name;
-    private Long rating;
+    @OneToOne
+    @JoinColumn(name = "userId")
+    private QueryUser user;
+    private BigDecimal points;
 }

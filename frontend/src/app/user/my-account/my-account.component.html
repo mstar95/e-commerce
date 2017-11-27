@@ -1,0 +1,12 @@
+<div *ngIf="user">
+
+  <h2>Moje konto</h2>
+  <div>
+    <label>login: {{user.name}}</label>
+    <label>ocena: {{user.rating}}</label>
+    <label>punkty: {{user.points}}</label>
+  </div>
+
+</div>
+<button (click)="addAuction()">Dodaj oferte</button>
+<button (click)="goBack()">go back</button>

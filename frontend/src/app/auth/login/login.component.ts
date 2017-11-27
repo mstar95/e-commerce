@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         if (result === true) {
           // login successful
-          this.router.navigate(['auctions']);
+          this.router.navigate(['my-account']);
         } else {
           // login failed
           this.error = 'Username or password is incorrect';

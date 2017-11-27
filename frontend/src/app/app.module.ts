@@ -16,6 +16,9 @@ import {AuctionSearchComponent} from './auction/auction-search/auction-search.co
 import {LoginComponent} from './auth/login/login.component';
 import { AuthenticationService } from './auth/authentication.service';
 import { AuthGuardService } from './auth/authguard.service';
+import { MyAccountComponent } from './user/my-account/my-account.component';
+import { UserService} from './user/user.service';
+import { UserPanelComponent } from './user/user-panel/user-panel.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { AuthGuardService } from './auth/authguard.service';
     MessagesComponent,
     DashboardComponent,
     AuctionSearchComponent,
-    LoginComponent
+    LoginComponent,
+    MyAccountComponent,
+    UserPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,12 @@ import { AuthGuardService } from './auth/authguard.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [AuctionService, MessageService, AuthenticationService, AuthGuardService],
+  providers: [
+    AuctionService,
+    MessageService,
+    AuthenticationService,
+    AuthGuardService,
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

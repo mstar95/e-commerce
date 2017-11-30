@@ -14,5 +14,5 @@ public class SaleOutDto {
     private byte[] image;
     private String name;
     private BigDecimal price;
-    private Boolean auction;
+    private Boolean deadline;
 }

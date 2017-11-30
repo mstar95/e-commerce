@@ -2,7 +2,8 @@ package pl.ecommerce.backend.sale.domain;
 
 import lombok.experimental.UtilityClass;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
-import pl.ecommerce.backend.sale.dto.*;
+import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
+import pl.ecommerce.backend.sale.dto.CreateSaleDto;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -13,20 +14,14 @@ class SaleFactory {
     static Sale createSale(CreateSaleDto createSaleDto) {
         return Sale.builder()
                 .name(createSaleDto.getName())
+                .description(createSaleDto.getDescription())
                 .image(createSaleDto.getImage())
                 .price(createSaleDto.getPrice())
-                .auction(false)
+                .buyNow(createSaleDto.isBuyNow())
+                .deadline(Timestamp.valueOf(createSaleDto.getDeadline()))
                 .build();
     }
 
-    static Sale createSale(CreateAuctionDto createAuctionDto) {
-        return Sale.builder()
-                .name(createAuctionDto.getName())
-                .image(createAuctionDto.getImage())
-                .price(createAuctionDto.getPrice())
-                .auction(true)
-                .deadLine(Timestamp.valueOf(createAuctionDto.getDeadLine())).build();
-    }
 
     static TransferPointsDto createTransferPointsDto(Sale sale, Long fromId) {
         return TransferPointsDto.builder()
@@ -53,7 +48,7 @@ class SaleFactory {
                 .price(sale.getPrice())
                 .ownerId(sale.getUserId())
                 .clientId(currentUserId)
-                .auction(sale.isAuction())
+                .buyNow(sale.isBuyNow())
                 .transactionDate(Timestamp.valueOf(currentDate)).build();
 
     }

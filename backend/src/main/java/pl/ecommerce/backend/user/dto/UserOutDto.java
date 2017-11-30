@@ -1,4 +1,4 @@
-package pl.ecommerce.backend.user.query;
+package pl.ecommerce.backend.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

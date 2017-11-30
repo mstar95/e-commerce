@@ -7,6 +7,10 @@ class SaleTestData {
 
     static CreateSaleDto createSaleDto1 = CreateSaleDto.builder()
             .name("Yeezy")
+            .description("The best of boots")
+            .deadline(TimeTestData.BASIC_DATA_LATER)
             .image(new byte[1])
-            .price(new BigDecimal(100)).build()
+            .price(new BigDecimal(100))
+            .buyNow(true)
+            .build()
 }

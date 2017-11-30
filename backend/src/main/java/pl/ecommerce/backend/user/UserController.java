@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ecommerce.backend.user.domain.UserFacade;
 import pl.ecommerce.backend.user.dto.CreateUserDto;
-import pl.ecommerce.backend.user.query.UserOutDto;
+import pl.ecommerce.backend.user.dto.UserOutDto;
 import pl.ecommerce.backend.user.query.QueryUserProfileRepository;
 
 @RestController

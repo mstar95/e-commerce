@@ -21,9 +21,9 @@ import { UserService} from './user/user.service';
 import { UserPanelComponent } from './user/user-panel/user-panel.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatGridListModule, MatFormFieldModule,
-  MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule }
-  from '@angular/material';
+import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatGridListModule,
+  MatFormFieldModule, MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule,
+  MatSlideToggleModule} from '@angular/material';
 import { AddAuctionComponent } from './auction/add-auction/add-auction.component';
 
 @NgModule({
@@ -57,7 +57,8 @@ import { AddAuctionComponent } from './auction/add-auction/add-auction.component
     MatInputModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSlideToggleModule
   ],
   providers: [
     AuctionService,

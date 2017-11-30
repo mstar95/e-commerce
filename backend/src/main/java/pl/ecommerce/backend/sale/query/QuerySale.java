@@ -1,6 +1,8 @@
 package pl.ecommerce.backend.sale.query;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,14 +13,16 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "sale")
-class QuerySale {
+@AllArgsConstructor
+@NoArgsConstructor
+public class QuerySale {
     @Id
     private Long id;
+    private Long userId;
     private String name;
     private byte[] image;
-    private Long userId;
     private BigDecimal price;
     private Timestamp created;
-    private Timestamp deadLine;
-    private boolean auction;
+    private Timestamp deadline;
+    private boolean buyNow;
 }

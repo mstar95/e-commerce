@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../user';
 import {UserService} from '../user.service';
+import {Router} from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-my-account',
@@ -11,7 +13,10 @@ export class MyAccountComponent implements OnInit {
 
   user: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private location: Location,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.getUser();
@@ -22,5 +27,12 @@ export class MyAccountComponent implements OnInit {
       .subscribe(user => this.user = user);
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
+  addAuction(): void {
+    this.router.navigate(['add-auction']);
+  }
 
 }

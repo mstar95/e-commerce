@@ -15,7 +15,7 @@ public class ArchivedSaleDto {
     private byte[] image;
     private String name;
     private BigDecimal price;
-    private Boolean auction;
+    private Boolean buyNow;
     private Long ownerId;
     private Long clientId;
     private Timestamp transactionDate;

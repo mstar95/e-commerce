@@ -15,4 +15,9 @@ class UserInMemoryRepository  extends InMemoryRepository<User> implements UserRe
         return entity;
     }
 
+    @Override
+    public User getUserByName(String name) {
+        return null;
+    }
+
 }

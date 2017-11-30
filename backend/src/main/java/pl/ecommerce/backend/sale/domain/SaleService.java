@@ -16,9 +16,4 @@ class SaleService {
         sale.setCreated(timeManager.getCurrentTimestamp());
         return saleRepository.save(sale).getId();
     }
-
-    Long createAuction(Sale sale) {
-        sale.setUserId(userFacade.getCurrentUserId());
-        return saleRepository.save(sale).getId();
-    }
 }

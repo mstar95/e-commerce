@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login',      component: LoginComponent},
   { path: 'auctions', component: AuctionsComponent, canActivate: [AuthGuardService]},
-  { path: 'detail/:id', component: AuctionDetailComponent },
+  { path: 'auction-detail/:id', component: AuctionDetailComponent },
   { path: 'my-account', component: MyAccountComponent },
   { path: 'add-auction', component: AddAuctionComponent },
 ];

@@ -10,11 +10,13 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @AllArgsConstructor
-public class CreateAuctionDto {
+public class SaleDetailDto {
     private Long id;
     private String name;
     private byte[] image;
+    private String description;
     private BigDecimal price;
     private LocalDateTime created;
-    private LocalDateTime deadLine;
+    private LocalDateTime deadline;
+    private boolean buyNow;
 }

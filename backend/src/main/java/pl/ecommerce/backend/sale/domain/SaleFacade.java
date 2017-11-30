@@ -17,11 +17,6 @@ public class SaleFacade {
         return saleService.createSale(sale);
     }
 
-    public Long createAuction(CreateSaleDto createSaleDto) {
-        Sale sale = SaleFactory.createSale(createSaleDto);
-        return saleService.createAuction(sale);
-    }
-
     public Optional<ArchivedSaleDto> finalizeSale(Long id) {
         return salePaymentsService.finalizeSale(id);
     }

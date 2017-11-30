@@ -9,7 +9,7 @@
     </div>
     <div>
       <mat-form-field>
-        <input matInput placeholder="Cena" class="form-control" name="price"
+        <input matInput placeholder="Cena" class="form-control" name="price" type="number"
                [(ngModel)]="auctionDetail.price" #price="ngModel" required>
       </mat-form-field>
     </div>
@@ -28,8 +28,13 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+    <div>
+        <mat-slide-toggle  name="buyNow" [(ngModel)]="auctionDetail.buyNow" #deadline="ngModel" required>
+          Kup teraz
+        </mat-slide-toggle>
+    </div>
     <div fxLayout>
-      <button mat-raised-button color="primary" [disabled]="loading" class="btn btn-primary">Login
+      <button mat-raised-button color="primary" [disabled]="loading" class="btn btn-primary">Dodaj
       </button>
       <mat-spinner *ngIf="loading" strokeWidth="3" [diameter]="30"></mat-spinner>
     </div>

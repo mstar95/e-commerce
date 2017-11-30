@@ -23,7 +23,7 @@ class ArchivedSale {
     private Long userId;
     private BigDecimal price;
     private LocalDateTime created;
-    private boolean auction;
+    private boolean buyNow;
     private Long ownerId;
     private Long clientId;
     private Timestamp transactionDate;

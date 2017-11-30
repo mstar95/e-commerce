@@ -11,8 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 public class CreateSaleDto {
-    private Long id;
     private String name;
     private byte[] image;
+    private String description;
     private BigDecimal price;
+    private LocalDateTime created;
+    private LocalDateTime deadline;
+    private boolean buyNow;
 }

@@ -20,7 +20,7 @@ public class TimeManager {
         return Timestamp.valueOf(getCurrentDate());
     }
 
-    public Date localDateTimeToDate (LocalDateTime localDateTime){
+    public static Date localDateTimeToDate (LocalDateTime localDateTime){
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 

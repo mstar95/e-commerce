@@ -1,9 +1,15 @@
-<h1>{{title}}</h1>
-<app-user-panel></app-user-panel>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/auctions">Auctions</a>
-  <a routerLink="/login">Login</a>
-</nav>
+<mat-toolbar color="primary">{{title}}</mat-toolbar>
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+  <nav mat-tab-nav-bar fxFlex="70%" >
+    <a mat-raised-button color="primary" routerLink="/dashboard"> Tablica </a>
+    <a mat-raised-button color="primary" routerLink="/auctions">Aukcje</a>
+    <a mat-raised-button color="primary" routerLink="/add-auction">Dodaj Aukcje</a>
+  </nav>
+  <app-user-panel fxFlex="30%"></app-user-panel>
+</div>
 <router-outlet></router-outlet>
-<app-messages></app-messages>

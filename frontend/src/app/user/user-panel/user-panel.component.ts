@@ -26,4 +26,8 @@ export class UserPanelComponent implements OnInit {
   goMyAccount(): void {
     this.router.navigate(['my-account']);
   }
+
+  goLogin(): void {
+    this.router.navigate(['login']);
+  }
 }

@@ -1,11 +1,16 @@
-<div *ngIf="user">
-  <div>
+<mat-card *ngIf="user">
+  <mat-card-header>
+    <mat-card-title>Twoje konto</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
     <label>login: {{user.name}}</label>
     <label>punkty: {{user.points}}</label>
-  </div>
-  <button (click)="goMyAccount()">Szczególy konta</button>
-</div>
-<div *ngIf="!user">
-  <button (click)="addAuction()">Zaloguj sie</button>
-</div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="goMyAccount()">Szczególy konta</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card *ngIf="!user">
+  <button mat-raised-button color="primary" (click)="goLogin()">Zaloguj sie</button>
+</mat-card>
 

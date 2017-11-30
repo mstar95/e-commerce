@@ -19,6 +19,12 @@ import { AuthGuardService } from './auth/authguard.service';
 import { MyAccountComponent } from './user/my-account/my-account.component';
 import { UserService} from './user/user.service';
 import { UserPanelComponent } from './user/user-panel/user-panel.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatGridListModule, MatFormFieldModule,
+  MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule }
+  from '@angular/material';
+import { AddAuctionComponent } from './auction/add-auction/add-auction.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +36,28 @@ import { UserPanelComponent } from './user/user-panel/user-panel.component';
     AuctionSearchComponent,
     LoginComponent,
     MyAccountComponent,
-    UserPanelComponent
+    UserPanelComponent,
+    AddAuctionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTabsModule,
+    MatGridListModule,
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     AuctionService,

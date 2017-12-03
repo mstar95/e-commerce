@@ -20,6 +20,7 @@ public class QuerySale {
     private Long id;
     private Long userId;
     private String name;
+    private String description;
     private byte[] image;
     private BigDecimal price;
     private Timestamp created;

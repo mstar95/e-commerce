@@ -3,6 +3,7 @@ package pl.ecommerce.backend.payment.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

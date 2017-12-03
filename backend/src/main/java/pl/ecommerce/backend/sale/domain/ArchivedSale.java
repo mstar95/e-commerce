@@ -3,10 +3,9 @@ package pl.ecommerce.backend.sale.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -15,8 +14,10 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 class ArchivedSale {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private byte[] image;

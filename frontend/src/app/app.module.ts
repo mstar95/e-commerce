@@ -21,10 +21,13 @@ import { UserService} from './user/user.service';
 import { UserPanelComponent } from './user/user-panel/user-panel.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatGridListModule,
   MatFormFieldModule, MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule,
   MatSlideToggleModule} from '@angular/material';
 import { AddAuctionComponent } from './auction/add-auction/add-auction.component';
+import { MustLoginDialogComponent } from './auth/must-login-dialog/must-login-dialog.component';
+import { RegistrationComponent } from './user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { AddAuctionComponent } from './auction/add-auction/add-auction.component
     LoginComponent,
     MyAccountComponent,
     UserPanelComponent,
-    AddAuctionComponent
+    AddAuctionComponent,
+    MustLoginDialogComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,11 @@ import { AddAuctionComponent } from './auction/add-auction/add-auction.component
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    MustLoginDialogComponent
   ],
   providers: [
     AuctionService,

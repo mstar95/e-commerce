@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface QuerySaleRepository extends Repository<QuerySale, Long> {
     //@Query("select NEW SaleDetailDto(s.id) from Sale s where s.userId = id")
     QuerySale findById(Long id);
-    List<SaleOutDto> findSalesByUserId(Long userId);
+  //  List<SaleOutDto> findSalesByUserId(Long userId);
     List<SaleOutDto>  findAll();
 }

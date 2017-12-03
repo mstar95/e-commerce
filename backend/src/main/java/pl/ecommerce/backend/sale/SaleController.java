@@ -26,10 +26,7 @@ public class SaleController {
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<SaleOutDto>> all() {
-      /*  return Try.of(querySaleRepository::findAll)
-                .map(ResponseEntity::ok)
-                .getOrElse(ResponseEntity.badRequest().body(null)); */
-          return Try.of(() -> Collections.singletonList(SaleOutDto.builder().build()))
+      return Try.of(querySaleRepository::findAll)
                 .map(ResponseEntity::ok)
                 .getOrElse(ResponseEntity.badRequest().body(null));
     }

@@ -3,6 +3,7 @@ package pl.ecommerce.backend.sale.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

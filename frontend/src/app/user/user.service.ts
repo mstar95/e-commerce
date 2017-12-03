@@ -3,6 +3,8 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from './user';
 import {AuthenticationService} from '../auth/authentication.service';
+import {CreateUser} from './createUser';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -24,4 +26,9 @@ export class UserService {
     const url = `${this.userUrl}/current`;
     return this.http.get<User>(url, this.httpOptions);
   }
+
+  createUser(createUser: CreateUser ): Observable<any> {
+    return this.http.post(this.userUrl + '/create', createUser, this.httpOptions);
+  }
+
 }

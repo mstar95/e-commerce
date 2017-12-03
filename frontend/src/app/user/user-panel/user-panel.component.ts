@@ -30,4 +30,8 @@ export class UserPanelComponent implements OnInit {
   goLogin(): void {
     this.router.navigate(['login']);
   }
+
+  goRegister(): void {
+    this.router.navigate(['register']);
+  }
 }

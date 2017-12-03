@@ -11,6 +11,7 @@ import {AuthenticationService} from '../auth/authentication.service';
 export class AuctionService {
 
   private auctionsUrl = 'api/sale';  // URL to web api
+  private paymentUrl = 'api/payment';  // URL to web api
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -23,10 +24,17 @@ export class AuctionService {
     private http: HttpClient,
     private authenticationService: AuthenticationService) { }
 
-  getAuction(id: number): Observable<Auction> {
+  buy(id: number): Observable<AuctionDetail> {
+    const url = `${this.paymentUrl}/buy/${id}`;
+    return this.http.get<AuctionDetail>(url, this.httpOptions).pipe(
+      catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
+    );
+  }
+
+  getAuction(id: number): Observable<AuctionDetail> {
     const url = `${this.auctionsUrl}/get/${id}`;
-    return this.http.get<Auction>(url).pipe(
-      catchError(this.handleError<Auction>(`getAuction id=${id}`))
+    return this.http.get<AuctionDetail>(url).pipe(
+      catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
     );
   }
 

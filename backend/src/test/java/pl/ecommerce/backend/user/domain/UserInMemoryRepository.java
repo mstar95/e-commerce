@@ -2,6 +2,8 @@ package pl.ecommerce.backend.user.domain;
 
 import pl.ecommerce.backend.repository.InMemoryRepository;
 
+import java.util.Optional;
+
 class UserInMemoryRepository  extends InMemoryRepository<User> implements UserRepository {
 
     @Override
@@ -16,8 +18,17 @@ class UserInMemoryRepository  extends InMemoryRepository<User> implements UserRe
     }
 
     @Override
-    public User getUserByName(String name) {
-        return null;
+    public Optional<User> getUserByName(String name) {
+        return repository.values().stream()
+                .filter(user -> user.getName().equals(name))
+                .findAny();
+    }
+
+    @Override
+    public Optional<User> getUserByNameOrEmail(String name, String email) {
+        return repository.values().stream()
+                .filter(user -> user.getName().equals(name) || user.getEmail().equals(email))
+                .findAny();
     }
 
 }

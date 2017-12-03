@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 class WalletFactory {
 
     static Wallet createWallet(Long userId) {
-        return Wallet.builder().userId(userId).points(BigDecimal.ZERO).build();
+        return Wallet.builder().userId(userId).points(BigDecimal.TEN).build();
     }
 
     static AmountAfterTransferDto createAmountAfterTransferDto(TransferPointsDto transferPointsDto,

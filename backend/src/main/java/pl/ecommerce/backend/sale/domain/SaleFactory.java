@@ -26,7 +26,7 @@ class SaleFactory {
     static TransferPointsDto createTransferPointsDto(Sale sale, Long fromId) {
         return TransferPointsDto.builder()
                 .fromId(fromId)
-                .toId(sale.getId())
+                .toId(sale.getUserId())
                 .amount(sale.getPrice())
                 .build();
     }

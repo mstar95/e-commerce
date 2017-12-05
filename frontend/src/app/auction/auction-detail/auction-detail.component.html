@@ -6,7 +6,12 @@
     <label>cena: {{auction.price}}</label>
     <label>opis: {{auction.description}}</label>
   </mat-card-content>
+  <mat-form-field *ngIf="token">
+    <input matInput placeholder="Kwota" class="form-control" name="bidAmount" type="number"
+           [(ngModel)]="bidAmount" #price="ngModel" required min={{auction.price+1}}>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+  </mat-form-field>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="buy()" class="btn btn-primary">Kup</button>
+    <button mat-raised-button color="primary" (click)="bid()" class="btn btn-primary">Licytuj</button>
   </mat-card-actions>
 </mat-card>

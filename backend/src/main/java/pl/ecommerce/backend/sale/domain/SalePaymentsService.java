@@ -1,6 +1,7 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import pl.ecommerce.backend.payment.domain.PaymentFacade;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
 import pl.ecommerce.backend.sale.exceptions.SaleFindException;
@@ -20,19 +21,20 @@ class SalePaymentsService {
     Optional<ArchivedSaleDto> finalizeSale(Long id) {
         Sale sale = saleRepository.findById(id)
                 .orElseThrow(() -> new SaleFindException("There is no sale with id:" + id));
-
+        if (!sale.isBuyNow()){
+            throw new SaleFindException("Sale with id: " + id + "is auction");
+        }
         Long currentUserId = userFacade.getCurrentUserId();
-        paymentFacade.transferPoints
-                (SaleFactory.createTransferPointsDto(sale, currentUserId));
+        paymentFacade.transferPoints(SaleFactory.createTransferPointsDto(sale, currentUserId));
         ArchivedSale archivedSale = prepareAndSaveArchivedSale(sale, currentUserId);
         saleRepository.deleteById(sale.getId());
         return Optional.of(SaleFactory.createArchivedSaleDto(archivedSale));
     }
 
-    private ArchivedSale prepareAndSaveArchivedSale(Sale sale, Long currentUserId) {
+
+    ArchivedSale prepareAndSaveArchivedSale(Sale sale, Long currentUserId) {
         ArchivedSale archivedSale = SaleFactory.createArchivedSale(sale, currentUserId,
                 timeManager.getCurrentDate());
         return archivedSaleRepository.save(archivedSale);
     }
-
 }

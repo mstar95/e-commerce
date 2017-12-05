@@ -20,15 +20,22 @@ export class AuctionService {
     })
   };
 
-  constructor(
-    private http: HttpClient,
-    private authenticationService: AuthenticationService) { }
+  constructor(private http: HttpClient,
+              private authenticationService: AuthenticationService) {
+  }
 
   buy(id: number): Observable<AuctionDetail> {
     const url = `${this.paymentUrl}/buy/${id}`;
     return this.http.get<AuctionDetail>(url, this.httpOptions).pipe(
       catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
     );
+  }
+
+  bid(id: number, amount: number): Observable<AuctionDetail> {
+    const url = `${this.paymentUrl}/bid`;
+    return this.http.post<AuctionDetail>(url, {auctionId: id, amount: amount}, this.httpOptions)
+      .pipe(catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
+      );
   }
 
   getAuction(id: number): Observable<AuctionDetail> {
@@ -42,7 +49,7 @@ export class AuctionService {
     return this.http.get<Auction[]>(this.auctionsUrl + '/all');
   }
 
-  addAuction (auctionDetail: AuctionDetail): Observable<any> {
+  addAuction(auctionDetail: AuctionDetail): Observable<any> {
     return this.http.post(this.auctionsUrl + '/add', auctionDetail, this.httpOptions).pipe(
       catchError(this.handleError<any>('saveAuction'))
     );
@@ -59,7 +66,7 @@ export class AuctionService {
     );
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure

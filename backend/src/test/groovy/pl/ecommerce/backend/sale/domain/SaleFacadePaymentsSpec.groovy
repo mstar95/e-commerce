@@ -4,6 +4,7 @@ package pl.ecommerce.backend.sale.domain
 import pl.ecommerce.backend.base.SaleTestData
 import pl.ecommerce.backend.base.TimeTestData
 import pl.ecommerce.backend.base.UserTestData
+import pl.ecommerce.backend.sale.dto.BidAuctionDto
 
 
 class SaleFacadePaymentsSpec extends SaleFacadeSpec {
@@ -13,7 +14,7 @@ class SaleFacadePaymentsSpec extends SaleFacadeSpec {
         timeManagerStub.getCurrentDate() >> TimeTestData.BASIC_DATA
     }
 
-    def "Should finalize single sale"() {
+    def "Should finalize sale"() {
         given:
         def saleInDto = SaleTestData.createSaleDto1
         def saleId = saleFacade.createSale(saleInDto)
@@ -29,5 +30,16 @@ class SaleFacadePaymentsSpec extends SaleFacadeSpec {
         archivedSale.transactionDate == TimeTestData.BASIC_DATA_TIMESTAMP
         archivedSale.ownerId== UserTestData.USER_ID_1
         archivedSale.clientId == UserTestData.USER_ID_2
+    }
+
+    def "Should bid auction"() {
+        given:
+        def saleInDto = SaleTestData.createSaleDtoAuction
+        def saleId = saleFacade.createSale(saleInDto)
+        def bidDto = new BidAuctionDto(saleId, new BigDecimal(50))
+        when:
+        def result = saleFacade.bidAuction(bidDto)
+        then:
+        result
     }
 }

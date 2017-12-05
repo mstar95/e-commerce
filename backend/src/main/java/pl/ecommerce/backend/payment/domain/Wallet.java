@@ -22,4 +22,5 @@ class Wallet {
     private Long id;
     private Long userId;
     private BigDecimal points;
+    private BigDecimal lockedPoints;
 }

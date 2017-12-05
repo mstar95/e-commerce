@@ -16,5 +16,6 @@ abstract class SaleFacadeSpec extends Specification {
     def saleService = new SaleService(saleRepositoryStub, userFacadeStub, timeManagerStub)
     def salePaymentsService = new SalePaymentsService(saleRepositoryStub, archivedSaleRepository,
             paymentFacadeStub , userFacadeStub, timeManagerStub)
-    def saleFacade = new SaleFacade(saleService, salePaymentsService)
+    def auctionService = new AuctionService(salePaymentsService,saleRepositoryStub, paymentFacadeStub, userFacadeStub )
+    def saleFacade = new SaleFacade(saleService, salePaymentsService, auctionService)
 }

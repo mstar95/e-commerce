@@ -36,7 +36,7 @@ class DataLoader implements ApplicationRunner {
         saleFacade.createSale(CreateSaleDto.builder().buyNow(false)
             .deadline(LocalDateTime.now()).image(new byte[1]).description("XD")
                 .name("XDD").price(BigDecimal.ONE).build());
-        saleFacade.createSale(CreateSaleDto.builder().buyNow(false)
+        saleFacade.createSale(CreateSaleDto.builder().buyNow(true)
                 .deadline(LocalDateTime.now().minusDays(1)).image(new byte[1]).description(":D")
                 .name(":DD").price(BigDecimal.TEN).build());
     }

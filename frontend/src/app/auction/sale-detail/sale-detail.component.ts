@@ -8,21 +8,17 @@ import {MatDialog} from '@angular/material';
 import {MustLoginDialogComponent} from '../../auth/must-login-dialog/must-login-dialog.component';
 
 @Component({
-  selector: 'app-auction-detail',
-  templateUrl: './auction-detail.component.html',
-  styleUrls: ['./auction-detail.component.css']
+  selector: 'app-sale-detail',
+  templateUrl: './sale-detail.component.html',
+  styleUrls: ['./sale-detail.component.css']
 })
-export class AuctionDetailComponent implements OnInit {
+export class SaleDetailComponent implements OnInit {
   @Input() auction: AuctionDetail;
-  bidAmount: number;
-  token: any;
-  error: string;
   constructor(private route: ActivatedRoute,
               private auctionService: AuctionService,
               private location: Location,
               private authenticationService: AuthenticationService,
               public dialog: MatDialog) {
-    this.token = this.authenticationService.getToken();
   }
 
   ngOnInit(): void {
@@ -35,14 +31,9 @@ export class AuctionDetailComponent implements OnInit {
       .subscribe(auction => this.auction = auction);
   }
 
-  bid(): void {
+  buy(): void {
     if (this.authenticationService.getToken()) {
-      if (!this.bidAmount || this.bidAmount <= this.auction.price) {
-        this.error = 'Zla kwota';
-        console.log("XD");
-        return;
-      }
-      this.auctionService.bid(this.auction.id, this.bidAmount).subscribe();
+      this.auctionService.buy(this.auction.id).subscribe();
     } else {
       this.openDialog();
     }

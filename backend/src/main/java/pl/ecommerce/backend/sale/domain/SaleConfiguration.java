@@ -6,6 +6,7 @@ import pl.ecommerce.backend.payment.domain.PaymentFacade;
 import pl.ecommerce.backend.time.domain.TimeManager;
 import pl.ecommerce.backend.user.domain.UserFacade;
 
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 class SaleConfiguration {
 
@@ -18,6 +19,7 @@ class SaleConfiguration {
         SaleService saleService = new SaleService(saleRepository, userFacade, timeManager);
         SalePaymentsService salePaymentsService = new SalePaymentsService(saleRepository, archivedSaleRepository,
                 paymentFacade, userFacade, timeManager);
-        return new SaleFacade(saleService, salePaymentsService);
+        AuctionService auctionService = new AuctionService(salePaymentsService, saleRepository, paymentFacade, userFacade);
+        return new SaleFacade(saleService, salePaymentsService, auctionService);
     }
 }

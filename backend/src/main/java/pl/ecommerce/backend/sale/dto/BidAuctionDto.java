@@ -9,10 +9,7 @@ import java.math.BigDecimal;
 @Data
 @Builder
 @AllArgsConstructor
-public class SaleOutDto {
-    private Long id;
-    private byte[] image;
-    private String name;
-    private BigDecimal price;
-    private Boolean buyNow;
+public class BidAuctionDto {
+    Long auctionId;
+    BigDecimal amount;
 }

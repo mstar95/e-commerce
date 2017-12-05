@@ -1,10 +1,13 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.experimental.UtilityClass;
+import pl.ecommerce.backend.payment.dtos.LockPointsDto;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
+import pl.ecommerce.backend.sale.dto.BidAuctionDto;
 import pl.ecommerce.backend.sale.dto.CreateSaleDto;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -22,12 +25,18 @@ class SaleFactory {
                 .build();
     }
 
-
     static TransferPointsDto createTransferPointsDto(Sale sale, Long fromId) {
         return TransferPointsDto.builder()
                 .fromId(fromId)
                 .toId(sale.getUserId())
                 .amount(sale.getPrice())
+                .build();
+    }
+
+    static LockPointsDto createLockPointsDto(BigDecimal amount, Long fromId) {
+        return LockPointsDto.builder()
+                .userId(fromId)
+                .amount(amount)
                 .build();
     }
 

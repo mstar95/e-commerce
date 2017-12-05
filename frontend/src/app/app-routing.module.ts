@@ -9,6 +9,7 @@ import {AuthGuardService} from './auth/authguard.service';
 import {MyAccountComponent} from './user/my-account/my-account.component';
 import {AddAuctionComponent} from './auction/add-auction/add-auction.component';
 import {RegistrationComponent} from './user/registration/registration.component';
+import {SaleDetailComponent} from './auction/sale-detail/sale-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'auctions', component: AuctionsComponent, canActivate: [AuthGuardService]},
   {path: 'auction-detail/:id', component: AuctionDetailComponent},
+  {path: 'sale-detail/:id', component: SaleDetailComponent},
   {path: 'my-account', component: MyAccountComponent},
   {path: 'add-auction', component: AddAuctionComponent},
 ];

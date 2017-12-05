@@ -22,6 +22,7 @@ class Sale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long userId;
+    private Long winnerId;
     private String name;
     private String description;
     private byte[] image;

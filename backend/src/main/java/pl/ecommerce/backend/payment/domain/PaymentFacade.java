@@ -1,10 +1,7 @@
 package pl.ecommerce.backend.payment.domain;
 
 import lombok.RequiredArgsConstructor;
-import pl.ecommerce.backend.payment.dtos.AmountAfterTransferDto;
-import pl.ecommerce.backend.payment.dtos.ChargePointsDto;
-import pl.ecommerce.backend.payment.dtos.ReducePointsDto;
-import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
+import pl.ecommerce.backend.payment.dtos.*;
 
 import java.math.BigDecimal;
 
@@ -30,5 +27,17 @@ public class PaymentFacade {
 
     public AmountAfterTransferDto transferPoints(TransferPointsDto transferPointsDto) {
         return paymentService.transferPoints(transferPointsDto);
+    }
+
+    public boolean lockPoints(LockPointsDto lockPointsDto) {
+        return paymentService.lockPoints(lockPointsDto.getUserId(), lockPointsDto.getAmount());
+    }
+
+    public boolean unLockPoints(LockPointsDto lockPointsDto) {
+        return paymentService.unLockPoints(lockPointsDto.getUserId(), lockPointsDto.getAmount());
+    }
+
+    public AmountAfterTransferDto transferPointsFromLock(TransferPointsDto transferPointsDto) {
+        return paymentService.transferPointsFromLock(transferPointsDto);
     }
 }

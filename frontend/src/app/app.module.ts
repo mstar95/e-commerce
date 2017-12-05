@@ -28,6 +28,7 @@ import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIco
 import { AddAuctionComponent } from './auction/add-auction/add-auction.component';
 import { MustLoginDialogComponent } from './auth/must-login-dialog/must-login-dialog.component';
 import { RegistrationComponent } from './user/registration/registration.component';
+import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RegistrationComponent } from './user/registration/registration.componen
     UserPanelComponent,
     AddAuctionComponent,
     MustLoginDialogComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    SaleDetailComponent
   ],
   imports: [
     BrowserModule,

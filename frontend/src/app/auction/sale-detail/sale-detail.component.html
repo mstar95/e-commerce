@@ -1,0 +1,12 @@
+<mat-card *ngIf="auction">
+  <mat-card-header>
+    {{ auction.name | uppercase }}
+  </mat-card-header>
+  <mat-card-content>
+    <label>cena: {{auction.price}}</label>
+    <label>opis: {{auction.description}}</label>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="buy()" class="btn btn-primary">Kup</button>
+  </mat-card-actions>
+</mat-card>

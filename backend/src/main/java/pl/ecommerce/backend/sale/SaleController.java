@@ -6,14 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ecommerce.backend.sale.domain.SaleFacade;
 import pl.ecommerce.backend.sale.dto.CreateSaleDto;
-import pl.ecommerce.backend.sale.dto.SaleDetailDto;
 import pl.ecommerce.backend.sale.dto.SaleOutDto;
 import pl.ecommerce.backend.sale.query.QuerySale;
 import pl.ecommerce.backend.sale.query.QuerySaleRepository;
-import pl.ecommerce.backend.user.dto.CreateUserDto;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RestController

@@ -1,13 +1,11 @@
-<div id="search-component">
-  <h4>Search Auction</h4>
-
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-
-  <ul class="search-result">
-    <li *ngFor="let auction of auctions$ | async" >
-      <a routerLink="/detail/{{auction.id}}">
-        {{auction.name}}
-      </a>
-    </li>
-  </ul>
-</div>
+<form class="example-form">
+     <mat-form-field  class="example-full-width" color="accent">
+   <input #searchBox id="search-box" matInput [matAutocomplete]="auto" (keyup)="search(searchBox.value)">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let auction of auctions$ | async" [value]="auction.name"
+                  (onSelectionChange)= "goActions(auction.name)" >
+        <span>{{ auction.name }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

@@ -55,13 +55,17 @@ export class AuctionService {
     );
   }
 
+  getAuctionsByName(name: string): Observable<Auction[]> {
+    return this.http.get<Auction[]>(`api/search/by-name/${name}`);
+  }
+
   /* GET heroes whose name contains search term */
   searchAuction(term: string): Observable<Auction[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Auction[]>(`api/search/?name=${term}`).pipe(
+    return this.http.get<Auction[]>(`api/search/${term}`).pipe(
       catchError(this.handleError<Auction[]>('searchAuctions', []))
     );
   }

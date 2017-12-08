@@ -20,7 +20,7 @@ class ArchivedSale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private byte[] image;
+    private Long imageId;
     private Long userId;
     private BigDecimal price;
     private LocalDateTime created;

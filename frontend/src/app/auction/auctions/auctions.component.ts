@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuctionService } from '../auction.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuctionService} from '../auction.service';
 import {Auction} from '../auction';
+import 'rxjs/add/observable/of';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-auctions',
@@ -10,13 +12,23 @@ import {Auction} from '../auction';
 })
 export class AuctionsComponent implements OnInit {
 
-  constructor(private router: Router, private auctionService: AuctionService) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private auctionService: AuctionService) {
+  }
 
   auctions: Auction[];
+  dataSource = new MatTableDataSource();
+  displayedColumns = ['image', 'name', 'price', 'buyNow' ];
 
   getAuctions(): void {
-    this.auctionService.getAuctions()
-      .subscribe(auctions => this.auctions = auctions,
+    const name = this.route.snapshot.paramMap.get('name');
+    this.auctionService.getAuctionsByName(name)
+      .subscribe(auctions => {
+          this.auctions = auctions;
+          this.dataSource.data = auctions.concat(auctions).concat(auctions).concat(auctions);
+         // this.dataSource = new MyDataSource(auctions);
+        },
         () => this.router.navigate(['login']));
   }
 
@@ -24,3 +36,4 @@ export class AuctionsComponent implements OnInit {
     this.getAuctions();
   }
 }
+

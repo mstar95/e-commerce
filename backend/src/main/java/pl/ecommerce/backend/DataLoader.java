@@ -34,10 +34,10 @@ class DataLoader implements ApplicationRunner {
                 new UsernamePasswordAuthenticationToken("user", null, Collections.emptyList());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         saleFacade.createSale(CreateSaleDto.builder().buyNow(false)
-            .deadline(LocalDateTime.now()).image(new byte[1]).description("XD")
+            .deadline(LocalDateTime.now()).imageId(null).description("XD")
                 .name("XDD").price(BigDecimal.ONE).build());
         saleFacade.createSale(CreateSaleDto.builder().buyNow(true)
-                .deadline(LocalDateTime.now().minusDays(1)).image(new byte[1]).description(":D")
+                .deadline(LocalDateTime.now().minusDays(1)).imageId(null).description(":D")
                 .name(":DD").price(BigDecimal.TEN).build());
     }
 

@@ -1,7 +1,7 @@
 export class AuctionDetail {
   id: number;
   name: string;
-  image: any;
+  imageId: number;
   description: string;
   price: number;
   create: Date;

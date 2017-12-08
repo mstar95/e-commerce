@@ -1,10 +1,38 @@
-<h2>My Auctions</h2>
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
 
-<ul class="auctions">
-  <li *ngFor="let auction of auctions">
-    <a routerLink="/detail/{{auction.id}}">
-      <span class="badge">{{auction.id}}</span> {{auction.name}}
-    </a>
-  </li>
-</ul>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Nazwa</mat-header-cell>
+      <mat-cell *matCellDef="let auction"> {{auction.name}}</mat-cell>
+    </ng-container>
 
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-icon>image</mat-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let auction">
+        <img *ngIf="auction.imageId" src="api/image/{{auction.imageId}}" />
+        <img *ngIf="!auction.imageId" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="buyNow">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-icon>store</mat-icon>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let auction">
+        <a *ngIf="auction.buyNow">kup teraz</a>
+        <a *ngIf="!auction.buyNow">aukcja</a>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef> Cena</mat-header-cell>
+      <mat-cell *matCellDef="let auction"> {{auction.price}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

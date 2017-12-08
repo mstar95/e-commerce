@@ -18,7 +18,7 @@ class SaleFactory {
         return Sale.builder()
                 .name(createSaleDto.getName())
                 .description(createSaleDto.getDescription())
-                .image(createSaleDto.getImage())
+                .imageId(createSaleDto.getImageId())
                 .price(createSaleDto.getPrice())
                 .buyNow(createSaleDto.isBuyNow())
                 .deadline(Timestamp.valueOf(createSaleDto.getDeadline()))
@@ -46,14 +46,14 @@ class SaleFactory {
                 .clientId(archivedSale.getClientId())
                 .price(archivedSale.getPrice())
                 .name(archivedSale.getName())
-                .image(archivedSale.getImage())
+                .imageId(archivedSale.getImageId())
                 .transactionDate(archivedSale.getTransactionDate()).build();
     }
 
     static ArchivedSale createArchivedSale(Sale sale, Long currentUserId, LocalDateTime currentDate) {
         return ArchivedSale.builder()
                 .name(sale.getName())
-                .image(sale.getImage())
+                .imageId(sale.getImageId())
                 .price(sale.getPrice())
                 .ownerId(sale.getUserId())
                 .clientId(currentUserId)

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SaleOutDto {
     private Long id;
-    private byte[] image;
+    private Long imageId;
     private String name;
     private BigDecimal price;
     private Boolean buyNow;

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.ecommerce.backend.sale.domain.SaleFacade;
 import pl.ecommerce.backend.sale.dto.CreateSaleDto;
 import pl.ecommerce.backend.sale.dto.SaleOutDto;
-import pl.ecommerce.backend.sale.query.QuerySale;
-import pl.ecommerce.backend.sale.query.QuerySaleRepository;
+import pl.ecommerce.backend.sale.query.QuerySaleDetail;
+import pl.ecommerce.backend.sale.query.QuerySaleDetailRepository;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/sale")
 public class SaleController {
 
-    private final QuerySaleRepository querySaleRepository;
+    private final QuerySaleDetailRepository querySaleRepository;
     private final SaleFacade saleFacade;
 
     @GetMapping(value = "/all")
@@ -29,12 +29,11 @@ public class SaleController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<Long> create(@RequestBody CreateSaleDto createSaleDto) {
-        createSaleDto.setImage(new byte[1]);
         return ResponseEntity.ok(saleFacade.createSale(createSaleDto));
     }
 
     @GetMapping(value = "/get/{id}")
-    public ResponseEntity<QuerySale> get(@PathVariable("id") long id) {
+    public ResponseEntity<QuerySaleDetail> get(@PathVariable("id") long id) {
        return Try.of(() -> querySaleRepository.findById(id))
                 .map(ResponseEntity::ok)
                 .getOrElse(ResponseEntity.badRequest().body(null));

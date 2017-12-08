@@ -1,7 +1,23 @@
 .mat-form-field.mat-form-field {
-  width: 70%;
+  width: 90%;
 }
 mat-card{
   width: 80%;
   margin: 1em auto;
+}
+
+image_button{
+  alignment: right;
+}
+
+img{
+  object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+  width: 50%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 50%;
+}
+
+wrapper{
+  width: 50px;
+  border: 1px solid black;
+  display:flex;
 }

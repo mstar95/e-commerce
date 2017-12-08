@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreateSaleDto {
     private String name;
-    private byte[] image;
+    private Long imageId;
     private String description;
     private BigDecimal price;
     private LocalDateTime created;

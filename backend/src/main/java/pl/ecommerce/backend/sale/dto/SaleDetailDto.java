@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class SaleDetailDto {
     private Long id;
     private String name;
-    private byte[] image;
+    private Long imageId;
     private String description;
     private BigDecimal price;
     private LocalDateTime created;

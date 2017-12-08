@@ -11,6 +11,7 @@ import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.co
 import {AuctionService} from './auction/auction.service';
 import {MessagesComponent} from './messages/messages.component';
 import {MessageService} from './message.service';
+import {ImageService} from './image.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuctionSearchComponent} from './auction/auction-search/auction-search.component';
 import {LoginComponent} from './auth/login/login.component';
@@ -24,7 +25,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatGridListModule,
   MatFormFieldModule, MatTabsModule, MatInputModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule,
-  MatSlideToggleModule} from '@angular/material';
+  MatSlideToggleModule, MatTableModule} from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AddAuctionComponent } from './auction/add-auction/add-auction.component';
 import { MustLoginDialogComponent } from './auth/must-login-dialog/must-login-dialog.component';
 import { RegistrationComponent } from './user/registration/registration.component';
@@ -66,12 +68,15 @@ import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatTableModule
   ],
   entryComponents: [
     MustLoginDialogComponent
   ],
   providers: [
+    ImageService,
     AuctionService,
     MessageService,
     AuthenticationService,

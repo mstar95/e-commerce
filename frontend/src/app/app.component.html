@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
   <span>{{title}}</span>
   <span class="spacer"></span>
+  <app-auction-search></app-auction-search>
+  <mat-icon>search</mat-icon>
+  <span class="spacer"></span>
   <app-user-panel></app-user-panel>
   <span class="little-spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu">

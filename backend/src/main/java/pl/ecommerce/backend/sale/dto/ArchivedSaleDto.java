@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class ArchivedSaleDto {
     private Long id;
-    private byte[] image;
+    private Long imageId;
     private String name;
     private BigDecimal price;
     private Boolean buyNow;

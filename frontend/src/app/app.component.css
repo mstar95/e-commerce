@@ -3,9 +3,9 @@
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-}
-.little-spacer {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 0.01 0.01 auto;
-}
+}.little-spacer {
+   -webkit-box-flex: 1;
+   -ms-flex: 1 1 auto;
+   flex: 0.01 0.01 auto;
+ }
+

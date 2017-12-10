@@ -36,7 +36,7 @@ export class AuctionDetailComponent implements OnInit {
   }
 
   bid(): void {
-    if (this.authenticationService.getToken()) {
+    if (this.authenticationService.isLoggedIn()) {
       if (!this.bidAmount || this.bidAmount <= this.auction.price) {
         this.error = 'Zla kwota';
         console.log("XD");

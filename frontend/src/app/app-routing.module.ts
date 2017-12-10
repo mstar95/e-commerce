@@ -16,12 +16,12 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  //{path: 'auctions', component: AuctionsComponent, canActivate: [AuthGuardService]},
+  {path: 'auctions', component: AuctionsComponent},
   {path: 'auctions/:name', component: AuctionsComponent},
   {path: 'auction-detail/:id', component: AuctionDetailComponent},
   {path: 'sale-detail/:id', component: SaleDetailComponent},
-  {path: 'my-account', component: MyAccountComponent},
-  {path: 'add-auction', component: AddAuctionComponent},
+  {path: 'my-account', component: MyAccountComponent,  canActivate: [AuthGuardService]},
+  {path: 'add-auction', component: AddAuctionComponent,  canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

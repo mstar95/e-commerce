@@ -9,8 +9,7 @@ import {AppComponent} from './app.component';
 import {AuctionsComponent} from './auction/auctions/auctions.component';
 import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
 import {AuctionService} from './auction/auction.service';
-import {MessagesComponent} from './messages/messages.component';
-import {MessageService} from './message.service';
+import {MessageService} from './message/message.service';
 import {ImageService} from './image.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuctionSearchComponent} from './auction/auction-search/auction-search.component';
@@ -37,7 +36,6 @@ import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component
     AppComponent,
     AuctionsComponent,
     AuctionDetailComponent,
-    MessagesComponent,
     DashboardComponent,
     AuctionSearchComponent,
     LoginComponent,
@@ -81,7 +79,8 @@ import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component
     MessageService,
     AuthenticationService,
     AuthGuardService,
-    UserService],
+    UserService,
+    UserPanelComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

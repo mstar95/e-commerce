@@ -2,6 +2,7 @@ package pl.ecommerce.backend.sale.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import pl.ecommerce.backend.message.domain.MessageFacade;
 import pl.ecommerce.backend.payment.domain.PaymentFacade;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
 import pl.ecommerce.backend.sale.exceptions.SaleFindException;
@@ -16,6 +17,7 @@ class SalePaymentsService {
     private final ArchivedSaleRepository archivedSaleRepository;
     private final PaymentFacade paymentFacade;
     private final UserFacade userFacade;
+    private final MessageFacade messageFacade;
     private final TimeManager timeManager;
 
     Optional<ArchivedSaleDto> finalizeSale(Long id) {
@@ -28,6 +30,7 @@ class SalePaymentsService {
         paymentFacade.transferPoints(SaleFactory.createTransferPointsDto(sale, currentUserId));
         ArchivedSale archivedSale = prepareAndSaveArchivedSale(sale, currentUserId);
         saleRepository.deleteById(sale.getId());
+        messageFacade.createFinalizeSaleMessage(SaleFactory.createFinalizeSaleMessage(sale, currentUserId));
         return Optional.of(SaleFactory.createArchivedSaleDto(archivedSale));
     }
 
@@ -37,4 +40,5 @@ class SalePaymentsService {
                 timeManager.getCurrentDate());
         return archivedSaleRepository.save(archivedSale);
     }
+
 }

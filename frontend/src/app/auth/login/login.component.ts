@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication.service';
+import {UserPanelComponent} from "../../user/user-panel/user-panel.component";
 
 @Component({
   moduleId: module.id,

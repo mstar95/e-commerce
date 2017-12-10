@@ -32,7 +32,7 @@ export class SaleDetailComponent implements OnInit {
   }
 
   buy(): void {
-    if (this.authenticationService.getToken()) {
+    if (this.authenticationService.isLoggedIn()) {
       this.auctionService.buy(this.auction.id).subscribe();
     } else {
       this.openDialog();

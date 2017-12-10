@@ -1,12 +1,22 @@
-<div *ngIf="user">
+<mat-card *ngIf="user">
+  <mat-card-header>
+    <label>Moje konto </label>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <div>
+        <label>login: {{user.name}}</label>
+      </div>
+      <div>
+        <label>ocena: {{user.rating}}</label>
+      </div>
+      <div>
+        <label>punkty: {{user.points}}</label>
+      </div>
+    </div>
+  </mat-card-content>
 
-  <h2>Moje konto</h2>
-  <div>
-    <label>login: {{user.name}}</label>
-    <label>ocena: {{user.rating}}</label>
-    <label>punkty: {{user.points}}</label>
-  </div>
-
-</div>
-<button (click)="addAuction()">Dodaj oferte</button>
-<button (click)="goBack()">go back</button>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="addAuction()">Dodaj oferte</button>
+  </mat-card-actions>
+</mat-card>

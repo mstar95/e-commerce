@@ -23,8 +23,10 @@ export class MyAccountComponent implements OnInit {
   }
 
   getUser(): void {
+    this.userService.refreshToken();
     this.userService.getCurrentUser()
       .subscribe(user => this.user = user);
+    this.userService.triggerGetUser();
   }
 
   goBack(): void {

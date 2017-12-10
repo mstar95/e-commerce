@@ -19,7 +19,7 @@ export class AuctionsComponent implements OnInit {
 
   auctions: Auction[];
   dataSource = new MatTableDataSource();
-  displayedColumns = ['image', 'name', 'price', 'buyNow' ];
+  displayedColumns = ['image', 'name', 'price', 'buyNow', 'date' ];
 
   getAuctions(): void {
     const name = this.route.snapshot.paramMap.get('name');

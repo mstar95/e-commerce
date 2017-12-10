@@ -6,23 +6,25 @@
   <span class="spacer"></span>
   <app-user-panel></app-user-panel>
   <span class="little-spacer"></span>
+  <button *ngIf="isLoggedIn()" mat-icon-button [matMenuTriggerFor]="messagesComp" (click)="markAsSeen()">
+    <mat-icon *ngIf="notify" color="accent">notifications</mat-icon>
+    <mat-icon *ngIf="!notify">notifications</mat-icon>
+    {{messages && notify ? messages.length : ""}}
+  </button>
+  <span class="medium-spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
+    <mat-icon aria-label="XD">more_vert</mat-icon>
   </button>
 </mat-toolbar>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
-  <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voicemail</span>
-  </button>
   <button mat-menu-item (click)="logout()">
     <mat-icon>lock_outline</mat-icon>
     <span>Wyloguj</span>
   </button>
+</mat-menu>
+
+<mat-menu #messagesComp="matMenu">
+  <a *ngFor="let message of messages"> {{message.text}}</a>
 </mat-menu>
 
 <nav mat-tab-nav-bar>

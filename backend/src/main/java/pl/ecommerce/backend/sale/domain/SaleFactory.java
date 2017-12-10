@@ -1,6 +1,7 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.experimental.UtilityClass;
+import pl.ecommerce.backend.message.dto.CreateFinalizeSaleMessageDto;
 import pl.ecommerce.backend.payment.dtos.LockPointsDto;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
@@ -61,4 +62,13 @@ class SaleFactory {
                 .transactionDate(Timestamp.valueOf(currentDate)).build();
 
     }
+
+    CreateFinalizeSaleMessageDto createFinalizeSaleMessage(Sale sale, Long buyerId) {
+        return CreateFinalizeSaleMessageDto.builder()
+                .amount(sale.getPrice())
+                .sellerId(sale.getUserId())
+                .buyerId(buyerId)
+                .productName(sale.getName()).build();
+    }
+
 }

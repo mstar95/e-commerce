@@ -9,3 +9,9 @@
    flex: 0.01 0.01 auto;
  }
 
+.medium-spacer {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 0.1 0.1 auto;
+}
+

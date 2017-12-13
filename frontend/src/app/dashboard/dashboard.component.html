@@ -1,5 +1,5 @@
-<div class="grid grid-pad">
-  <a *ngFor="let auction of auctions" class="col-1-4"  (click)="goDetails(auction.id)">
+<mat-grid-list cols="4" rowHeight="30em">
+   <mat-grid-tile *ngFor="let auction of auctions"   (click)="goDetails(auction.id)">
     <mat-card >
       <mat-card-header>
         <mat-card-title>{{auction.name}}</mat-card-title>
@@ -14,6 +14,6 @@
         </p>
       </mat-card-content>
     </mat-card>
-  </a>
-</div>
+  </mat-grid-tile>
+</mat-grid-list>
 

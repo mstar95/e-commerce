@@ -31,14 +31,13 @@ export class UserService {
   }
 
   triggerGetUser() {
-    const url = `${this.userUrl}/current`;
-    this.http.get<User>(url, this.httpOptions)
+    this.http.get<User>(`${this.userUrl}/current`, this.httpOptions)
       .subscribe(user => this.userSubject.next(user),
         () => this.userSubject.next(null));
   }
 
   createUser(createUser: CreateUser): Observable<any> {
-    return this.http.post(this.userUrl + '/create', createUser, this.httpOptions);
+    return this.http.post(`${this.userUrl}/create`, createUser, this.httpOptions);
   }
 
   refreshToken() {

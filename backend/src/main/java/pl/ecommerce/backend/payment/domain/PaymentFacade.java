@@ -7,37 +7,38 @@ import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 public class PaymentFacade {
-    private final PaymentService paymentService;
+    private final TransactionsPaymentService transactionsPaymentService;
+    private final BasicOperationPaymentService basicOperationPaymentService;
 
     public Long createWallet(long userId) {
-        return paymentService.createWallet(userId);
+        return transactionsPaymentService.createWallet(userId);
     }
 
     public BigDecimal getAmountByUserID(long userId) {
-        return paymentService.getAmountByUserID(userId);
+        return transactionsPaymentService.getAmountByUserID(userId);
     }
 
     public BigDecimal chargePoints(ChargePointsDto chargePointsDto){
-        return paymentService.chargePoints(chargePointsDto);
+        return basicOperationPaymentService.chargePoints(chargePointsDto);
     }
 
     public BigDecimal reducePoints(ReducePointsDto reducePointsDto) {
-        return paymentService.reducePoints(reducePointsDto);
+        return basicOperationPaymentService.reducePoints(reducePointsDto);
     }
 
     public AmountAfterTransferDto transferPoints(TransferPointsDto transferPointsDto) {
-        return paymentService.transferPoints(transferPointsDto);
+        return transactionsPaymentService.transferPoints(transferPointsDto);
     }
 
     public boolean lockPoints(LockPointsDto lockPointsDto) {
-        return paymentService.lockPoints(lockPointsDto.getUserId(), lockPointsDto.getAmount());
+        return transactionsPaymentService.lockPoints(lockPointsDto.getUserId(), lockPointsDto.getAmount());
     }
 
     public boolean unLockPoints(LockPointsDto lockPointsDto) {
-        return paymentService.unLockPoints(lockPointsDto.getUserId(), lockPointsDto.getAmount());
+        return transactionsPaymentService.unLockPoints(lockPointsDto.getUserId(), lockPointsDto.getAmount());
     }
 
     public AmountAfterTransferDto transferPointsFromLock(TransferPointsDto transferPointsDto) {
-        return paymentService.transferPointsFromLock(transferPointsDto);
+        return transactionsPaymentService.transferPointsFromLock(transferPointsDto);
     }
 }

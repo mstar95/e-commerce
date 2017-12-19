@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuctionDetail} from '../auctionDetail';
 import {Router} from '@angular/router';
 import {AuctionService} from '../auction.service';
-import {ImageService} from "../../image.service";
+import {ImageService} from "../../image/image.service";
 
 @Component({
   selector: 'app-add-auction',

@@ -10,6 +10,5 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 public class ChargePointsDto {
-    private Long userId;
     private BigDecimal amount;
 }

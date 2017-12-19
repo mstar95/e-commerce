@@ -11,6 +11,5 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class UserOutDto {
     private String name;
-    private Long rating;
     private BigDecimal points;
 }

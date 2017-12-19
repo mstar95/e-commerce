@@ -13,14 +13,16 @@
       <span>koniec aukcji: {{auction.deadline | date: 'dd/MM/yyyy'}}</span>
     </div>
   </mat-card-content>
-  <img *ngIf="auction.imageId" src="api/image/{{auction.imageId}}" />
+  <img *ngIf="auction.imageId" mat-card-image src="api/image/{{auction.imageId}}" />
   <img *ngIf="!auction.imageId" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-  <mat-form-field *ngIf="token">
+  <mat-form-field *ngIf="token && !auction.winner" >
     <input matInput placeholder="Kwota" class="form-control" name="bidAmount" type="number"
            [(ngModel)]="bidAmount" #price="ngModel" required min={{auction.price+1}}>
     <mat-error *ngIf="error">{{error}}</mat-error>
   </mat-form-field>
+  <span *ngIf="auction.winner"> wygrywasz licytacje</span>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="bid()" class="btn btn-primary">Licytuj</button>
+    <button *ngIf="!auction.owner && !auction.winner" mat-raised-button color="primary" (click)="bid()" class="btn btn-primary">Licytuj</button>
+    <span *ngIf="auction.owner"> jestes wlascicielem licytacji</span>
   </mat-card-actions>
 </mat-card>

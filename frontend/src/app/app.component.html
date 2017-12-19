@@ -13,7 +13,7 @@
   </button>
   <span class="medium-spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon aria-label="XD">more_vert</mat-icon>
+    <mat-icon>more_vert</mat-icon>
   </button>
 </mat-toolbar>
 <mat-menu #menu="matMenu">
@@ -24,7 +24,7 @@
 </mat-menu>
 
 <mat-menu #messagesComp="matMenu">
-  <a *ngFor="let message of messages"> {{message.text}}</a>
+  <a *ngFor="let message of messages"> {{message.text}}<br/></a>
 </mat-menu>
 
 <nav mat-tab-nav-bar>

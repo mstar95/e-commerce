@@ -10,7 +10,7 @@ import {AuctionsComponent} from './auction/auctions/auctions.component';
 import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
 import {AuctionService} from './auction/auction.service';
 import {MessageService} from './message/message.service';
-import {ImageService} from './image.service';
+import {ImageService} from './image/image.service';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {AuctionSearchComponent} from './auction/auction-search/auction-search.component';
 import {LoginComponent} from './auth/login/login.component';
@@ -30,6 +30,8 @@ import { AddAuctionComponent } from './auction/add-auction/add-auction.component
 import { MustLoginDialogComponent } from './auth/must-login-dialog/must-login-dialog.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component';
+import { ChargePointsDialogComponent } from './user/charge-points-dialog/charge-points-dialog.component';
+import {PaymentService} from "./auction/payment.service";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component
     AddAuctionComponent,
     MustLoginDialogComponent,
     RegistrationComponent,
-    SaleDetailComponent
+    SaleDetailComponent,
+    ChargePointsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component
     MatTableModule
   ],
   entryComponents: [
-    MustLoginDialogComponent
+    MustLoginDialogComponent,
+    ChargePointsDialogComponent
   ],
   providers: [
     ImageService,
@@ -80,6 +84,7 @@ import { SaleDetailComponent } from './auction/sale-detail/sale-detail.component
     AuthenticationService,
     AuthGuardService,
     UserService,
+    PaymentService,
     UserPanelComponent],
   bootstrap: [AppComponent]
 })

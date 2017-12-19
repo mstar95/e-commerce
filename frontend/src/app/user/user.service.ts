@@ -4,26 +4,35 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from './user';
 import {AuthenticationService} from '../auth/authentication.service';
 import {CreateUser} from './createUser';
-import {catchError} from 'rxjs/operators';
-import {Subject} from "rxjs/Subject";
-import * as url from "url";
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {
 
   private userUrl = 'api/user';  // URL to web api
-  private userSubject = new Subject<User>();
+  private userSubject = new BehaviorSubject<User>(null);
   private userObservable$ = this.userSubject.asObservable();
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.authenticationService.getToken()
+      'Authorization': 'Bearer '
     })
   };
 
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) {
+    this.authenticationService.getTokenObs()
+      .subscribe(token => this.setHttpOptions(token));
+  }
+
+  private setHttpOptions(token) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
   }
 
   getCurrentUser(): Observable<User> {
@@ -38,15 +47,6 @@ export class UserService {
 
   createUser(createUser: CreateUser): Observable<any> {
     return this.http.post(`${this.userUrl}/create`, createUser, this.httpOptions);
-  }
-
-  refreshToken() {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authenticationService.getToken()
-      })
-    };
   }
 
 }

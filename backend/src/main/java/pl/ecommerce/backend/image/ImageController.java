@@ -8,7 +8,7 @@ import pl.ecommerce.backend.image.domain.ImageFacade;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/image")
+@RequestMapping("/image")
 public class ImageController {
 
     private final ImageFacade imageFacade;

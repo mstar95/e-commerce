@@ -12,12 +12,14 @@ export class MessageService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.authenticationService.getToken()
+      'Authorization': 'Bearer '
     })
   };
 
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) {
+    this.authenticationService.getTokenObs()
+      .subscribe(token => this.setHttpOptions(token));
   }
 
   getAll(): Observable<Message[]> {
@@ -28,5 +30,13 @@ export class MessageService {
     return this.http.get(this.messageUrl + '/seen', this.httpOptions);
   }
 
+  private setHttpOptions(token) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
+  }
 
 }

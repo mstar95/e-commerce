@@ -11,36 +11,32 @@ import {AuthenticationService} from '../auth/authentication.service';
 export class AuctionService {
 
   private auctionsUrl = 'api/sale';  // URL to web api
-  private paymentUrl = 'api/payment';  // URL to web api
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.authenticationService.getToken()
+      'Authorization': 'Bearer '
     })
   };
 
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) {
+    this.authenticationService.getTokenObs()
+      .subscribe(token => this.setHttpOptions(token));
   }
 
-  buy(id: number): Observable<AuctionDetail> {
-    const url = `${this.paymentUrl}/buy/${id}`;
-    return this.http.get<AuctionDetail>(url, this.httpOptions).pipe(
-      catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
-    );
-  }
-
-  bid(id: number, amount: number): Observable<AuctionDetail> {
-    const url = `${this.paymentUrl}/bid`;
-    return this.http.post<AuctionDetail>(url, {auctionId: id, amount: amount}, this.httpOptions)
-      .pipe(catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
-      );
+  private setHttpOptions(token) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      })
+    };
   }
 
   getAuction(id: number): Observable<AuctionDetail> {
     const url = `${this.auctionsUrl}/get/${id}`;
-    return this.http.get<AuctionDetail>(url).pipe(
+    return this.http.get<AuctionDetail>(url, this.httpOptions).pipe(
       catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
     );
   }

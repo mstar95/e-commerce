@@ -29,20 +29,20 @@ class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Long user1Id = userFacade.createUser(CreateUserDto.builder().name("user").password("user")
-                .rePassword("user").email("XD").build());
-        Long user2Id = userFacade.createUser(CreateUserDto.builder().name("a").password("a")
-                .rePassword("a").email("a").build());
+        Long user1Id = userFacade.createUser(CreateUserDto.builder().name("buyer").password("buyer")
+                .rePassword("buyer").email("buyer").build());
+        Long user2Id = userFacade.createUser(CreateUserDto.builder().name("seller").password("seller")
+                .rePassword("seller").email("seller").build());
         UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken("user", null, Collections.emptyList());
+                new UsernamePasswordAuthenticationToken("seller", null, Collections.emptyList());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         saleFacade.createSale(CreateSaleDto.builder().buyNow(false)
-            .deadline(LocalDateTime.now()).imageId(null).description("XD")
-                .name("XDD").price(BigDecimal.ONE).build());
+            .deadline(LocalDateTime.now()).imageId(null).description("Bardzo fajny piesek, przystepkna cena")
+                .name("Piesek").price(BigDecimal.ONE).build());
         saleFacade.createSale(CreateSaleDto.builder().buyNow(true)
-                .deadline(LocalDateTime.now().minusDays(1)).imageId(null).description(":D")
-                .name(":DD").price(BigDecimal.TEN).build());
+                .deadline(LocalDateTime.now().minusDays(1)).imageId(null).description("Swietny rower")
+                .name("Rower").price(BigDecimal.TEN).build());
         messageFacade.createFinalizeSaleMessage(CreateFinalizeSaleMessageDto.builder()
-                .buyerId(user1Id).sellerId(user2Id).productName("XD").amount(BigDecimal.TEN).build());
+                .buyerId(user1Id).sellerId(user2Id).productName("Lego").amount(BigDecimal.TEN).build());
     }
 }

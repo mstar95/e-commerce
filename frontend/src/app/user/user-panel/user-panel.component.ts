@@ -19,7 +19,6 @@ export class UserPanelComponent implements OnInit {
   }
 
   getUser(): void {
-    this.userService.refreshToken();
     this.userService.getCurrentUser()
       .subscribe(user => this.user = user);
     this.userService.triggerGetUser();

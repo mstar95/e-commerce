@@ -19,4 +19,6 @@ public class SaleDetailDto {
     private LocalDateTime created;
     private LocalDateTime deadline;
     private boolean buyNow;
+    private boolean isOwner;
+    private boolean isWinner;
 }

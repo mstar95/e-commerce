@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from './auth/authentication.service';
 import {MessageService} from './message/message.service';
 import {Message} from './message/message';
-import {UserService} from "./user/user.service";
+import {UserService} from './user/user.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -25,25 +26,32 @@ export class AppComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,
               private messageService: MessageService,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-    this.getMessages();
-    this.navLinks = this.notNeedToLogNavLinks;
-    if (this.isLoggedIn()) {
-      this.navLinks = this.notNeedToLogNavLinks.concat(this.needToLogNavLinks);
-    }
+    this.authenticationService.getLoginObservalbe().subscribe(state => {
+      if (state) {
+        this.navLinks = this.notNeedToLogNavLinks.concat(this.needToLogNavLinks);
+        this.getMessages();
+      } else {
+        this.navLinks = this.notNeedToLogNavLinks;
+      }
+    });
   }
 
   logout() {
+    this.router.navigate(['dashboard']);
     this.authenticationService.logout();
-    this.userService.refreshToken();
     this.userService.triggerGetUser();
   }
 
   markAsSeen() {
-    this.notify = false;
+    if (this.notify) {
+      this.notify = false;
+      this.messageService.markSeen().subscribe();
+    }
   }
 
   isLoggedIn() {

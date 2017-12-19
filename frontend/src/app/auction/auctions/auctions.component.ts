@@ -21,8 +21,8 @@ export class AuctionsComponent implements OnInit {
   dataSource = new MatTableDataSource();
   displayedColumns = ['image', 'name', 'price', 'buyNow', 'date' ];
 
-  getAuctions(): void {
-    const name = this.route.snapshot.paramMap.get('name');
+  getAuctions(params): void {
+    const name = params.get('name');
     this.auctionService.getAuctionsByName(name)
       .subscribe(auctions => {
           this.auctions = auctions;
@@ -33,7 +33,7 @@ export class AuctionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAuctions();
+    this.route.paramMap.subscribe(params => this.getAuctions(params));
   }
 }
 

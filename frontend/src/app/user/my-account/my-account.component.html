@@ -8,9 +8,6 @@
         <label>login: {{user.name}}</label>
       </div>
       <div>
-        <label>ocena: {{user.rating}}</label>
-      </div>
-      <div>
         <label>punkty: {{user.points}}</label>
       </div>
     </div>
@@ -18,5 +15,6 @@
 
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="addAuction()">Dodaj oferte</button>
+    <button mat-raised-button color="primary" (click)="openDialog()">Dodaj punkty</button>
   </mat-card-actions>
 </mat-card>

@@ -4,5 +4,5 @@ export class Auction {
   imageId: number;
   price: number;
   buyNow: boolean;
-  deadline:any;
+  deadline: any;
 }

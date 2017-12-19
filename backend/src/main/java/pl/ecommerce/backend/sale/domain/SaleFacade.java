@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
 import pl.ecommerce.backend.sale.dto.BidAuctionDto;
 import pl.ecommerce.backend.sale.dto.CreateSaleDto;
+import pl.ecommerce.backend.sale.dto.SaleDetailDto;
 
 import java.util.Optional;
 
@@ -29,6 +30,10 @@ public class SaleFacade {
 
     public Optional<ArchivedSaleDto> finalizeAuction(Long id){
         return auctionService.finalizeAuction(id);
+    }
+
+    public SaleDetailDto findById(Long id) {
+       return saleService.findById(id);
     }
 
 }

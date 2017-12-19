@@ -6,6 +6,9 @@ import {AuctionDetail} from '../auctionDetail';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {MatDialog} from '@angular/material';
 import {MustLoginDialogComponent} from '../../auth/must-login-dialog/must-login-dialog.component';
+import {UserService} from "../../user/user.service";
+import {User} from "../../user/user";
+import {PaymentService} from "../payment.service";
 
 @Component({
   selector: 'app-sale-detail',
@@ -14,10 +17,13 @@ import {MustLoginDialogComponent} from '../../auth/must-login-dialog/must-login-
 })
 export class SaleDetailComponent implements OnInit {
   @Input() auction: AuctionDetail;
+  private user: User;
   constructor(private route: ActivatedRoute,
               private auctionService: AuctionService,
+              private paymentService: PaymentService,
               private location: Location,
               private authenticationService: AuthenticationService,
+              private userService: UserService,
               public dialog: MatDialog) {
   }
 
@@ -27,13 +33,14 @@ export class SaleDetailComponent implements OnInit {
 
   getAuction(): void {
     const id = +this.route.snapshot.paramMap.get('id');
+    this.userService.getCurrentUser().subscribe();
     this.auctionService.getAuction(id)
-      .subscribe(auction => this.auction = auction);
+      .subscribe(auction => { this.auction = auction; console.log(this.auction); });
   }
 
   buy(): void {
     if (this.authenticationService.isLoggedIn()) {
-      this.auctionService.buy(this.auction.id).subscribe();
+      this.paymentService.buy(this.auction.id).subscribe();
     } else {
       this.openDialog();
     }

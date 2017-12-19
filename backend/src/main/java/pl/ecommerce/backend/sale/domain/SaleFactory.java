@@ -4,9 +4,7 @@ import lombok.experimental.UtilityClass;
 import pl.ecommerce.backend.message.dto.CreateFinalizeSaleMessageDto;
 import pl.ecommerce.backend.payment.dtos.LockPointsDto;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
-import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
-import pl.ecommerce.backend.sale.dto.BidAuctionDto;
-import pl.ecommerce.backend.sale.dto.CreateSaleDto;
+import pl.ecommerce.backend.sale.dto.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -69,6 +67,21 @@ class SaleFactory {
                 .sellerId(sale.getUserId())
                 .buyerId(buyerId)
                 .productName(sale.getName()).build();
+    }
+
+    SaleDetailDto createSaleDetailDto(Sale sale, boolean isOwner, boolean isWinner) {
+        return SaleDetailDto.builder()
+                .price(sale.getPrice())
+                .name(sale.getName())
+                .id(sale.getId())
+                .buyNow(sale.isBuyNow())
+                .imageId(sale.getImageId())
+                .buyNow(sale.isBuyNow())
+                .created(sale.getCreated().toLocalDateTime())
+                .deadline(sale.getDeadline().toLocalDateTime())
+                .description(sale.getDescription())
+                .isOwner(isOwner)
+                .isWinner(isWinner).build();
     }
 
 }

@@ -7,4 +7,6 @@ export class AuctionDetail {
   create: Date;
   deadline: Date;
   buyNow: boolean;
+  owner = false;
+  winner = false;
 }

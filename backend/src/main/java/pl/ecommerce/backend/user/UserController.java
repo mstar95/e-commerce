@@ -10,7 +10,7 @@ import pl.ecommerce.backend.user.query.QueryUserProfileRepository;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserFacade userFacade;

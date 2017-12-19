@@ -6,6 +6,7 @@ import {AuctionDetail} from '../auctionDetail';
 import {AuthenticationService} from '../../auth/authentication.service';
 import {MatDialog} from '@angular/material';
 import {MustLoginDialogComponent} from '../../auth/must-login-dialog/must-login-dialog.component';
+import {PaymentService} from "../payment.service";
 
 @Component({
   selector: 'app-auction-detail',
@@ -19,6 +20,7 @@ export class AuctionDetailComponent implements OnInit {
   error: string;
   constructor(private route: ActivatedRoute,
               private auctionService: AuctionService,
+              private paymentService: PaymentService,
               private location: Location,
               private authenticationService: AuthenticationService,
               public dialog: MatDialog) {
@@ -39,10 +41,9 @@ export class AuctionDetailComponent implements OnInit {
     if (this.authenticationService.isLoggedIn()) {
       if (!this.bidAmount || this.bidAmount <= this.auction.price) {
         this.error = 'Zla kwota';
-        console.log("XD");
         return;
       }
-      this.auctionService.bid(this.auction.id, this.bidAmount).subscribe();
+      this.paymentService.bid(this.auction.id, this.bidAmount).subscribe(() => this.getAuction());
     } else {
       this.openDialog();
     }

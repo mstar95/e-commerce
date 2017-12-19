@@ -1,6 +1,10 @@
 package pl.ecommerce.backend.sale.domain;
 
+import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
+import pl.ecommerce.backend.sale.dto.SaleDetailDto;
+import pl.ecommerce.backend.sale.dto.SaleOutDto;
+import pl.ecommerce.backend.sale.exceptions.SaleFindException;
 import pl.ecommerce.backend.time.domain.TimeManager;
 import pl.ecommerce.backend.user.domain.UserFacade;
 
@@ -15,5 +19,14 @@ class SaleService {
         sale.setUserId(userFacade.getCurrentUserId());
         sale.setCreated(timeManager.getCurrentTimestamp());
         return saleRepository.save(sale).getId();
+    }
+
+    public SaleDetailDto findById(Long id) {
+        Sale sale = saleRepository.findById(id)
+                .orElseThrow(() -> new SaleFindException("There is no sale with id:" + id));
+        Long currentUserId = Try.of(userFacade::getCurrentUserId).getOrNull();
+        boolean isOwner = sale.getUserId().equals(currentUserId);
+        boolean isWinner = sale.getWinnerId() != null && sale.getWinnerId().equals(currentUserId);
+        return SaleFactory.createSaleDetailDto(sale, isOwner, isWinner);
     }
 }

@@ -16,6 +16,7 @@
   <img *ngIf="auction.imageId" src="api/image/{{auction.imageId}}" />
   <img *ngIf="!auction.imageId" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="buy()" class="btn btn-primary">Kup</button>
+    <button *ngIf="!auction.owner" mat-raised-button color="primary" (click)="buy()" class="btn btn-primary">Kup</button>
+    <span *ngIf="auction.owner"> jestes wlascicielem produktu</span>
   </mat-card-actions>
 </mat-card>

@@ -2,12 +2,11 @@ package pl.ecommerce.backend.payment.domain
 
 import pl.ecommerce.backend.base.PaymentTestData
 import pl.ecommerce.backend.base.UserTestData
-import pl.ecommerce.backend.user.domain.UserFacade
 import spock.lang.Specification
 
 class TransferPointsSpec extends Specification {
     def walletRepository = new WalletInMemoryRepository()
-    def paymentService = new PaymentService(walletRepository)
+    def paymentService = new TransactionsPaymentService(walletRepository)
     def paymentFacade = new PaymentFacade(paymentService)
 
     def setup() {

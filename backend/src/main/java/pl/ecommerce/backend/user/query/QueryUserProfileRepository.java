@@ -6,11 +6,11 @@ import pl.ecommerce.backend.user.dto.UserOutDto;
 
 public interface QueryUserProfileRepository extends Repository<QueryUserInfo, Long> {
 
-    @Query("SELECT NEW pl.ecommerce.backend.user.dto.UserOutDto(u.user.name, u.user.rating, u.points )" +
+    @Query("SELECT NEW pl.ecommerce.backend.user.dto.UserOutDto(u.user.name, u.points )" +
             " FROM QueryUserInfo u where u.user.name = ?1 ")
     UserOutDto findQueryUserByName (String name);
 
-    @Query("SELECT NEW pl.ecommerce.backend.user.dto.UserOutDto(u.user.name, u.user.rating, u.points )" +
+    @Query("SELECT NEW pl.ecommerce.backend.user.dto.UserOutDto(u.user.name, u.points )" +
             " FROM QueryUserInfo u where u.user.id = ?1 ")
     UserOutDto findQueryUserById (Long id);
 

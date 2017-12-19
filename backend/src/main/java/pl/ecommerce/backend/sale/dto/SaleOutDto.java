@@ -1,12 +1,11 @@
 package pl.ecommerce.backend.sale.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Value
+@Getter
 @Builder
 @AllArgsConstructor
 public class SaleOutDto {

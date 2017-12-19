@@ -23,9 +23,8 @@ public class SaleController {
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<SaleOutDto>> all() {
-      return Try.of(querySaleRepository::findAll)
-                .map(ResponseEntity::ok)
-                .getOrElse(ResponseEntity.badRequest().body(null));
+        querySaleRepository.findAll();
+        return ResponseEntity.ok(querySaleRepository.findAll());
     }
 
     @PostMapping(value = "/add")
@@ -35,8 +34,6 @@ public class SaleController {
 
     @GetMapping(value = "/get/{id}")
     public ResponseEntity<SaleDetailDto> get(@PathVariable("id") long id) {
-       return Try.of(() -> saleFacade.findById(id))
-                .map(ResponseEntity::ok)
-                .getOrElse(ResponseEntity.badRequest().body(null));
+        return ResponseEntity.ok(saleFacade.findById(id));
     }
 }

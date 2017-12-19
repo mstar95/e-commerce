@@ -1,14 +1,12 @@
 package pl.ecommerce.backend.payment.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-@Data
+@Value
 @Builder
-@AllArgsConstructor
 public class AmountAfterTransferDto {
     private Long fromId;
     private Long toId;

@@ -1,11 +1,11 @@
 package pl.ecommerce.backend.payment.dtos;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-@Data
+@Value
 @Builder
 public class LockPointsDto {
     private long userId;

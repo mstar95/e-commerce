@@ -21,9 +21,7 @@ class MessageController {
 
     @GetMapping(value = "")
     public ResponseEntity<List<MessageOutDto>> all() {
-        return Try.of(messageFacade::getMessagesForCurrentUser)
-                .map(ResponseEntity::ok)
-                .getOrElse(ResponseEntity.badRequest().body(null));
+        return ResponseEntity.ok(messageFacade.getMessagesForCurrentUser());
     }
 
     @GetMapping(value = "/seen")

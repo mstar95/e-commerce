@@ -15,13 +15,11 @@ public class ImageController {
 
     @PostMapping()
     public ResponseEntity<Long> handleFileUpload(@RequestParam("file") MultipartFile file) {
-
         return ResponseEntity.ok(imageFacade.save(file));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> handleFileUpload(@PathVariable("id") long id) {
-
         return ResponseEntity.ok(imageFacade.get(id));
     }
 }

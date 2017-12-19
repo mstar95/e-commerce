@@ -1,14 +1,12 @@
 package pl.ecommerce.backend.message.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
 import java.math.BigDecimal;
 
-@Data
+@Value
 @Builder
-@AllArgsConstructor
 public class CreateFinalizeSaleMessageDto {
     Long buyerId;
     Long sellerId;

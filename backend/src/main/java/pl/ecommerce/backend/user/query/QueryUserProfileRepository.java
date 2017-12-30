@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import pl.ecommerce.backend.user.dto.UserOutDto;
 
+import java.util.List;
+
 public interface QueryUserProfileRepository extends Repository<QueryUserInfo, Long> {
 
     @Query("SELECT NEW pl.ecommerce.backend.user.dto.UserOutDto(u.user.name, u.points )" +
@@ -13,5 +15,7 @@ public interface QueryUserProfileRepository extends Repository<QueryUserInfo, Lo
     @Query("SELECT NEW pl.ecommerce.backend.user.dto.UserOutDto(u.user.name, u.points )" +
             " FROM QueryUserInfo u where u.user.id = ?1 ")
     UserOutDto findQueryUserById (Long id);
+
+    List<UserOutDto> findAll();
 
 }

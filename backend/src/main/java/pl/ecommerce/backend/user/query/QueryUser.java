@@ -13,10 +13,9 @@ import java.math.BigDecimal;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "xd")
 class QueryUser {
     @Id
     private Long id;
     private String name;
-    private Long rating;
 }

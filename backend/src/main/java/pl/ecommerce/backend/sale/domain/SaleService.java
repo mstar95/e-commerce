@@ -12,16 +12,24 @@ import pl.ecommerce.backend.user.domain.UserFacade;
 class SaleService {
 
     private final SaleRepository saleRepository;
+    private final ElasticSearchSaleRepository elasticSearchSaleRepository;
     private final UserFacade userFacade;
     private final TimeManager timeManager;
 
     Long createSale(Sale sale) {
         sale.setUserId(userFacade.getCurrentUserId());
         sale.setCreated(timeManager.getCurrentTimestamp());
-        return saleRepository.save(sale).getId();
+        Sale savedSale = saleRepository.save(sale);
+        createElasticSearchSale(savedSale);
+        return savedSale.getId();
     }
 
-    public SaleDetailDto findById(Long id) {
+    private void createElasticSearchSale(Sale savedSale){
+        ElasticSearchSale elasticSearchSale = ElasticSearchSaleFactory.createElasticSearchSale(savedSale);
+        elasticSearchSaleRepository.index(elasticSearchSale);
+    }
+
+    SaleDetailDto findById(Long id) {
         Sale sale = saleRepository.findById(id)
                 .orElseThrow(() -> new SaleFindException("There is no sale with id:" + id));
         Long currentUserId = Try.of(userFacade::getCurrentUserId).getOrNull();

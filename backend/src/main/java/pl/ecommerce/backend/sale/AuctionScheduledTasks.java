@@ -13,6 +13,6 @@ class AuctionScheduledTasks {
 
     @Scheduled(fixedRate = 5000)
     public void finalizeAuctions() {
-
+        saleFacade.finalizeAuctions();
     }
 }

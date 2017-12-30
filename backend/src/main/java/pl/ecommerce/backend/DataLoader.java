@@ -13,6 +13,7 @@ import pl.ecommerce.backend.sale.domain.SaleFacade;
 import pl.ecommerce.backend.sale.dto.CreateSaleDto;
 import pl.ecommerce.backend.user.domain.UserFacade;
 import pl.ecommerce.backend.user.dto.CreateUserDto;
+import pl.ecommerce.backend.user.query.QueryUserProfileRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,10 +27,11 @@ class DataLoader implements ApplicationRunner {
     private final UserFacade userFacade;
     private final SaleFacade saleFacade;
     private final MessageFacade messageFacade;
+    private final QueryUserProfileRepository queryUserProfileRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Long user1Id = userFacade.createUser(CreateUserDto.builder().name("buyer").password("buyer")
+       Long user1Id = userFacade.createUser(CreateUserDto.builder().name("buyer").password("buyer")
                 .rePassword("buyer").email("buyer").build());
         Long user2Id = userFacade.createUser(CreateUserDto.builder().name("seller").password("seller")
                 .rePassword("seller").email("seller").build());
@@ -42,7 +44,9 @@ class DataLoader implements ApplicationRunner {
         saleFacade.createSale(CreateSaleDto.builder().buyNow(true)
                 .deadline(LocalDateTime.now().minusDays(1)).imageId(null).description("Swietny rower")
                 .name("Rower").price(BigDecimal.TEN).build());
-        messageFacade.createFinalizeSaleMessage(CreateFinalizeSaleMessageDto.builder()
-                .buyerId(user1Id).sellerId(user2Id).productName("Lego").amount(BigDecimal.TEN).build());
+        queryUserProfileRepository.findAll();
+     //   messageFacade.createFinalizeSaleMessage(CreateFinalizeSaleMessageDto.builder()
+    //            .buyerId(user1Id).sellerId(user2Id).productName("Lego").amount(BigDecimal.TEN).build());
+
     }
 }

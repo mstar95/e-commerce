@@ -5,7 +5,6 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Value
-@Getter
 @Builder
 @AllArgsConstructor
 public class SaleOutDto {

@@ -13,11 +13,9 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 class Image {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Lob
     private byte[] file;
 }

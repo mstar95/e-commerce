@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Getter
-@Table(name = "user")
+@Table(name = "xd")
 class UserCredentials {
     @Id
     private Long id;

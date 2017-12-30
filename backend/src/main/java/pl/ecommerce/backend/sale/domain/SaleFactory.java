@@ -1,6 +1,7 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.data.elasticsearch.core.completion.Completion;
 import pl.ecommerce.backend.message.dto.CreateFinalizeSaleMessageDto;
 import pl.ecommerce.backend.payment.dtos.LockPointsDto;
 import pl.ecommerce.backend.payment.dtos.TransferPointsDto;
@@ -9,6 +10,7 @@ import pl.ecommerce.backend.sale.dto.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @UtilityClass
 class SaleFactory {
@@ -39,28 +41,6 @@ class SaleFactory {
                 .build();
     }
 
-    static ArchivedSaleDto createArchivedSaleDto(ArchivedSale archivedSale) {
-        return ArchivedSaleDto.builder()
-                .ownerId(archivedSale.getOwnerId())
-                .clientId(archivedSale.getClientId())
-                .price(archivedSale.getPrice())
-                .name(archivedSale.getName())
-                .imageId(archivedSale.getImageId())
-                .transactionDate(archivedSale.getTransactionDate()).build();
-    }
-
-    static ArchivedSale createArchivedSale(Sale sale, Long currentUserId, LocalDateTime currentDate) {
-        return ArchivedSale.builder()
-                .name(sale.getName())
-                .imageId(sale.getImageId())
-                .price(sale.getPrice())
-                .ownerId(sale.getUserId())
-                .clientId(currentUserId)
-                .buyNow(sale.isBuyNow())
-                .transactionDate(Timestamp.valueOf(currentDate)).build();
-
-    }
-
     CreateFinalizeSaleMessageDto createFinalizeSaleMessage(Sale sale, Long buyerId) {
         return CreateFinalizeSaleMessageDto.builder()
                 .amount(sale.getPrice())
@@ -83,5 +63,4 @@ class SaleFactory {
                 .isOwner(isOwner)
                 .isWinner(isWinner).build();
     }
-
 }

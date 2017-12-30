@@ -1,21 +1,19 @@
 package pl.ecommerce.backend.sale.domain;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import pl.ecommerce.backend.payment.domain.PaymentFacade;
-import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
 import pl.ecommerce.backend.sale.exceptions.SaleFindException;
+import pl.ecommerce.backend.time.domain.TimeManager;
 import pl.ecommerce.backend.user.domain.UserFacade;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 class AuctionService {
-    private final SalePaymentsService salePaymentsService;
     private final SaleRepository saleRepository;
     private final PaymentFacade paymentFacade;
     private final UserFacade userFacade;
+    private final TimeManager timeManager;
 
     boolean bidAuction(Long id, BigDecimal amount) {
         Sale sale = saleRepository.findById(id)
@@ -35,16 +33,19 @@ class AuctionService {
 
     }
 
-    Optional<ArchivedSaleDto> finalizeAuction(Long id) {
-        Sale sale = saleRepository.findById(id)
-                .orElseThrow(() -> new SaleFindException("There is no sale with id:" + id));
-        if (sale.isBuyNow()){
-            throw new SaleFindException("Sale with id: " + id + "is not a auction");
+    void finalizeAuctions() {
+       saleRepository.findSalesByDeadlineAfterAndBuyNowIsFalse(timeManager.getCurrentTimestamp())
+               .forEach(this::finalizeAuction);
+    }
+
+    private void finalizeAuction(Sale sale) {
+        if (sale.isBuyNow()) {
+            throw new SaleFindException("Sale with id: " + sale.getId() + "is not a auction");
         }
         Long winnerId = sale.getWinnerId();
-        paymentFacade.transferPointsFromLock(SaleFactory.createTransferPointsDto(sale, winnerId));
-        ArchivedSale archivedSale = salePaymentsService.prepareAndSaveArchivedSale(sale, winnerId);
+        if (winnerId != null) {
+            paymentFacade.transferPointsFromLock(SaleFactory.createTransferPointsDto(sale, winnerId));
+        }
         saleRepository.deleteById(sale.getId());
-        return Optional.of(SaleFactory.createArchivedSaleDto(archivedSale));
     }
 }

@@ -13,15 +13,15 @@ class SaleConfiguration {
 
     @Bean
     SaleFacade saleFacade(SaleRepository saleRepository,
-                          ArchivedSaleRepository archivedSaleRepository,
+                          ElasticSearchSaleRepository elasticSearchSaleRepository,
                           UserFacade userFacade,
                           PaymentFacade paymentFacade,
                           TimeManager timeManager,
                           MessageFacade messageFacade){
-        SaleService saleService = new SaleService(saleRepository, userFacade, timeManager);
-        SalePaymentsService salePaymentsService = new SalePaymentsService(saleRepository, archivedSaleRepository,
-                paymentFacade, userFacade, messageFacade, timeManager);
-        AuctionService auctionService = new AuctionService(salePaymentsService, saleRepository, paymentFacade, userFacade);
+        SaleService saleService = new SaleService(saleRepository, elasticSearchSaleRepository, userFacade, timeManager);
+        SalePaymentsService salePaymentsService = new SalePaymentsService(saleRepository,elasticSearchSaleRepository,
+                paymentFacade, userFacade, messageFacade);
+        AuctionService auctionService = new AuctionService(saleRepository, paymentFacade, userFacade, timeManager);
         return new SaleFacade(saleService, salePaymentsService, auctionService);
     }
 }

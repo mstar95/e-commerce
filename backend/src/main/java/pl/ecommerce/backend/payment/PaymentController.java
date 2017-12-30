@@ -1,13 +1,11 @@
 package pl.ecommerce.backend.payment;
 
-import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ecommerce.backend.payment.domain.PaymentFacade;
 import pl.ecommerce.backend.payment.dtos.ChargePointsDto;
 import pl.ecommerce.backend.sale.domain.SaleFacade;
-import pl.ecommerce.backend.sale.dto.ArchivedSaleDto;
 import pl.ecommerce.backend.sale.dto.BidAuctionDto;
 
 import java.math.BigDecimal;
@@ -26,8 +24,8 @@ class PaymentController {
     }
 
     @GetMapping(value = "/buy/{id}")
-    public ResponseEntity<ArchivedSaleDto> get(@PathVariable("id") long id) {
-        return ResponseEntity.ok(saleFacade.finalizeSale(id).orElse(ArchivedSaleDto.builder().build()));
+    public ResponseEntity<Long> get(@PathVariable("id") long id) {
+        return ResponseEntity.ok(saleFacade.finalizeSale(id).orElse(0L));
     }
 
     @PostMapping(value = "/bid")

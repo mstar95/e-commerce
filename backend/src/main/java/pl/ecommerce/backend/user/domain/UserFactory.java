@@ -14,8 +14,7 @@ class UserFactory {
         return User.builder()
                 .name(createUserDto.getName())
                 .password(createUserDto.getPassword())
-                .email(createUserDto.getEmail())
-                .rating(0L).build();
+                .email(createUserDto.getEmail()).build();
     }
 
 }

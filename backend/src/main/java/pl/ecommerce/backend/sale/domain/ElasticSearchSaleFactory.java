@@ -11,11 +11,16 @@ class ElasticSearchSaleFactory {
                 .name(sale.getName())
                 .description(sale.getDescription())
                 .entityId(sale.getId())
+                .buyNow(sale.isBuyNow())
+                .created(sale.getCreated())
+                .deadline(sale.getDeadline())
+                .imageId(sale.getImageId())
+                .price(sale.getPrice())
                 .completion(createCompletion(sale)).build();
     }
 
     private Completion createCompletion(Sale sale) {
-        String[] split = sale.getDescription().split("\\s+");
+        String[] split = sale.getDescription().split(",|\\s+");
         return new Completion((String[])ArrayUtils.add( split,sale.getName()));
     }
 

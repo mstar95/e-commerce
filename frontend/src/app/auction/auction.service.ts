@@ -52,7 +52,7 @@ export class AuctionService {
   }
 
   getAuctionsByName(name: string): Observable<Auction[]> {
-    return this.http.get<Auction[]>(`api/search/by-name/${name}`);
+    return this.http.get<Auction[]>(`api/search/sale/${name}`);
   }
 
   /* GET heroes whose name contains search term */

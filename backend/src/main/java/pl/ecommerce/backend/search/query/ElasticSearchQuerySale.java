@@ -6,13 +6,21 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.CompletionField;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 @Data
 @Builder
 @Document(indexName = "sale",type = "elasticsearchsale" )
-public class ElasticSearchQuerySale {
+class ElasticSearchQuerySale {
     @Id
     private String id;
     private Long entityId;
-    private String name;
     private String description;
+    private String name;
+    private Long imageId;
+    private BigDecimal price;
+    private Timestamp created;
+    private Timestamp deadline;
+    private boolean buyNow;
 }

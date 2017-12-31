@@ -49,4 +49,5 @@ class DataLoader implements ApplicationRunner {
     //            .buyerId(user1Id).sellerId(user2Id).productName("Lego").amount(BigDecimal.TEN).build());
 
     }
+
 }

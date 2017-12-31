@@ -5,7 +5,7 @@ import pl.ecommerce.backend.search.dto.SaleNameDto;
 
 import java.util.List;
 
-public interface QuerySaleRepository extends Repository<QuerySale, Long> {
+interface QuerySaleRepository extends Repository<QuerySale, Long> {
 
     List<SaleNameDto>  findByNameStartsWith(String name);
 

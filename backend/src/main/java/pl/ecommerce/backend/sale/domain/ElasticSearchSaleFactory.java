@@ -20,8 +20,9 @@ class ElasticSearchSaleFactory {
     }
 
     private Completion createCompletion(Sale sale) {
-        String[] split = sale.getDescription().split(",|\\s+");
-        return new Completion((String[])ArrayUtils.add( split,sale.getName()));
+        String[] split = sale.getName().split(",|\\s+");
+        String split2 = sale.getDescription();
+        return new Completion((String[])ArrayUtils.add( split,split2));
     }
 
 }

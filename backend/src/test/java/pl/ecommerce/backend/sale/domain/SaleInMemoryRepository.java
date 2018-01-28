@@ -2,6 +2,9 @@ package pl.ecommerce.backend.sale.domain;
 
 import pl.ecommerce.backend.repository.InMemoryRepository;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 class SaleInMemoryRepository extends InMemoryRepository<Sale> implements SaleRepository {
 
     @Override
@@ -13,6 +16,11 @@ class SaleInMemoryRepository extends InMemoryRepository<Sale> implements SaleRep
         }
         repository.put(id, entity);
         return entity;
+    }
+
+    @Override
+    public List<Sale> findSalesByDeadlineAfterAndBuyNowIsFalse(Timestamp deadline) {
+        return null;
     }
 
     @Override

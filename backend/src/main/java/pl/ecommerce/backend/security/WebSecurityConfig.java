@@ -26,15 +26,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Bean
     JwtAuthenticationFilter authenticationFilterBean(){
         return new JwtAuthenticationFilter();
     }
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,24 +56,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
-
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/**").permitAll()
-                .antMatchers("/sale/**").permitAll()
-                .antMatchers("/lol/**").authenticated();
+                .antMatchers(HttpMethod.POST,"/auth/**").permitAll()
+                .antMatchers(HttpMethod.POST).authenticated()
+                .antMatchers("/message","payment").authenticated()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 
         httpSecurity.addFilterBefore(authenticationFilterBean(),
                 UsernamePasswordAuthenticationFilter.class);
-
-
         httpSecurity.headers().cacheControl();
     }
 }

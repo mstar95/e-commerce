@@ -14,7 +14,7 @@ class ImageService {
     Long save(MultipartFile file) {
         try {
             Image image = Image.builder().file(file.getBytes()).build();
-           return imageRepository.save(image).getId();
+            return imageRepository.save(image).getId();
         } catch (IOException e) {
             e.printStackTrace();
         }

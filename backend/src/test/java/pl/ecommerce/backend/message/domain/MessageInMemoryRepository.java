@@ -2,6 +2,7 @@ package pl.ecommerce.backend.message.domain;
 
 import pl.ecommerce.backend.repository.InMemoryRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,16 @@ class MessageInMemoryRepository extends InMemoryRepository<Message> implements M
         return repository.values().stream()
                 .filter(message -> message.getId().equals(id))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Message> getMessagesByAddresseeIdAndSeen(Long id, boolean seen) {
+        return Collections.singletonList(new Message());
+    }
+
+    @Override
+    public void saveAll(Iterable<Message> messages) {
+
     }
 
 

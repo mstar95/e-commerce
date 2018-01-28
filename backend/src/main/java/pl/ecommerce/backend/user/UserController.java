@@ -16,7 +16,7 @@ public class UserController {
     private final UserFacade userFacade;
     private final QueryUserProfileRepository queryUserRepository;
 
-    @PostMapping(value = "/create")
+    @PostMapping
     public ResponseEntity<Long> create(@RequestBody CreateUserDto createUserDto) {
         return ResponseEntity.ok(userFacade.createUser(createUserDto));
 

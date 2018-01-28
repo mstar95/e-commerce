@@ -19,7 +19,7 @@ class AuctionService {
         Sale sale = saleRepository.findById(id)
                 .orElseThrow(() -> new SaleFindException("There is no sale with id:" + id));
         if (sale.isBuyNow()){
-            throw new SaleFindException("Sale with id: " + id + " is not auction");
+            throw new SaleFindException("Sale with id: " + id + " is not an auction");
         }
         Long currentUserId = userFacade.getCurrentUserId();
         paymentFacade.lockPoints(SaleFactory.createLockPointsDto(amount, currentUserId));

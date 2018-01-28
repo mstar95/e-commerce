@@ -10,8 +10,8 @@ class MessageTestData {
             .productName(SaleTestData.createSaleDto1.name)
             .sellerId(UserTestData.USER_ID_2).build()
 
-    static final QUERY_USER_1 = new UserOutDto("user1", 0L, BigDecimal.TEN)
-    static final QUERY_USER_2 = new UserOutDto("user2", 0L, BigDecimal.TEN)
+    static final QUERY_USER_1 = new UserOutDto("user1", BigDecimal.TEN)
+    static final QUERY_USER_2 = new UserOutDto("user2", BigDecimal.TEN)
 
     static final FinalizeSaleSellerMessage = "Uzytkownik {0} kupil od Ciebie produkt {1} za {2}"
     static final FinalizeSaleSellerMessageResult =

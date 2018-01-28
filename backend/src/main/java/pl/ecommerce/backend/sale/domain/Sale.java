@@ -18,11 +18,12 @@ class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long imageId;
     private Long userId;
     private Long winnerId;
     private String name;
+    @Column(columnDefinition="TEXT")
     private String description;
-    private Long imageId;
     private BigDecimal price;
     private Timestamp created;
     private Timestamp deadline;

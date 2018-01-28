@@ -2,12 +2,17 @@ package pl.ecommerce.backend.payment.domain
 
 import pl.ecommerce.backend.base.PaymentTestData
 import pl.ecommerce.backend.base.UserTestData
+import pl.ecommerce.backend.user.domain.UserFacade
 import spock.lang.Specification
+
+import javax.rmi.CORBA.Stub
 
 class TransferPointsSpec extends Specification {
     def walletRepository = new WalletInMemoryRepository()
+    def userFacade =  Stub(UserFacade)
     def paymentService = new TransactionsPaymentService(walletRepository)
-    def paymentFacade = new PaymentFacade(paymentService)
+    def basicPaymentService = new BasicOperationPaymentService(walletRepository, userFacade)
+    def paymentFacade = new PaymentFacade(paymentService, basicPaymentService)
 
     def setup() {
         walletRepository.save(new Wallet(1, UserTestData.USER_ID_1, 100, 100))

@@ -20,7 +20,7 @@ class SaleService {
         sale.setUserId(userFacade.getCurrentUserId());
         sale.setCreated(timeManager.getCurrentTimestamp());
         Sale savedSale = saleRepository.save(sale);
-      //  createElasticSearchSale(savedSale);
+        createElasticSearchSale(savedSale);
         return savedSale.getId();
     }
 

@@ -23,7 +23,8 @@ abstract class AbstractPaymentService {
         return points;
     }
 
-    protected BigDecimal addPoints(BigDecimal chargePoints, Supplier<BigDecimal> getter, Consumer<BigDecimal> setter) {
+    protected BigDecimal addPoints(BigDecimal chargePoints, Supplier<BigDecimal> getter,
+                                   Consumer<BigDecimal> setter) {
         BigDecimal result = getter.get().add(chargePoints);
         setter.accept(result);
         return result;

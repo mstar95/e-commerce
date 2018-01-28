@@ -12,7 +12,8 @@ class BasicPaymentFacadeSpec  extends Specification {
     def userFacadeStub = Stub(UserFacade)
     def walletRepository = new WalletInMemoryRepository()
     def paymentService = new TransactionsPaymentService(walletRepository)
-    def paymentFacade = new PaymentFacade(paymentService)
+    def basicService = new BasicOperationPaymentService(walletRepository, userFacadeStub)
+    def paymentFacade = new PaymentFacade(paymentService, basicService)
 
     def setup() {
         userFacadeStub.getCurrentUserId() >> UserTestData.USER_ID_1
@@ -21,10 +22,8 @@ class BasicPaymentFacadeSpec  extends Specification {
     def "should succesfully create a wallet"() {
         when:
         def walletId = paymentFacade.createWallet(UserTestData.USER_ID_1)
-        def amount = paymentFacade.getAmountByUserID(UserTestData.USER_ID_1)
         then:
         walletId != null
-        amount == BigDecimal.ZERO
     }
 
     def "should succesfully charge a wallet"() {
@@ -34,7 +33,7 @@ class BasicPaymentFacadeSpec  extends Specification {
         when:
         def amount = paymentFacade.chargePoints(dto)
         then:
-        amount == dto.getAmount()
+        amount == dto.getAmount() + 10
     }
 
     def "should throw reducePointseException"() {

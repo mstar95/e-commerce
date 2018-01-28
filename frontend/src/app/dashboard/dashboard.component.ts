@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   getAuctions(): void {
     this.auctionService.getAuctions()
-      .subscribe(auctions => this.auctions = auctions.slice(0, 20).concat(auctions.slice(0, 20)).concat(auctions.slice(0, 20)) );
+      .subscribe(auctions => this.auctions = auctions.slice(0, 20));
   }
 
   goDetails(id: number): void {

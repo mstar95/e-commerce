@@ -23,7 +23,6 @@ class SaleFacadeBasicOperationsSpec extends SaleFacadeSpec {
         sale.userId == UserTestData.USER_ID_1
         sale.name == saleInDto.name
         sale.description == saleInDto.description
-        sale.image == sale.image
         sale.price == saleInDto.price
         sale.isBuyNow()
         sale.created == TimeTestData.BASIC_DATA_TIMESTAMP

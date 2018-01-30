@@ -35,32 +35,37 @@ export class AuctionService {
   }
 
   getAuction(id: number): Observable<AuctionDetail> {
-    const url = `${this.auctionsUrl}/get/${id}`;
+    const url = `${this.auctionsUrl}/${id}`;
     return this.http.get<AuctionDetail>(url, this.httpOptions).pipe(
       catchError(this.handleError<AuctionDetail>(`getAuction id=${id}`))
     );
   }
 
   getAuctions(): Observable<Auction[]> {
-    return this.http.get<Auction[]>(this.auctionsUrl + '/all');
+    return this.http.get<Auction[]>(this.auctionsUrl);
   }
 
   addAuction(auctionDetail: AuctionDetail): Observable<any> {
-    return this.http.post(this.auctionsUrl + '/add', auctionDetail, this.httpOptions).pipe(
+    return this.http.post(this.auctionsUrl, auctionDetail, this.httpOptions).pipe(
       catchError(this.handleError<any>('saveAuction'))
     );
   }
 
   getAuctionsByName(name: string): Observable<Auction[]> {
+    if (!name || !name.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
     return this.http.get<Auction[]>(`api/search/sale/${name}`);
   }
 
   /* GET heroes whose name contains search term */
   searchAuction(term: string): Observable<Auction[]> {
-    if (!term.trim()) {
+    if (!term || !term.trim()) {
       // if not search term, return empty hero array.
       return of([]);
     }
+    console.log(term);
     return this.http.get<Auction[]>(`api/search/${term}`).pipe(
       catchError(this.handleError<Auction[]>('searchAuctions', []))
     );

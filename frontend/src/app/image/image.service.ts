@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthenticationService} from '../auth/authentication.service';
 import {Observable} from 'rxjs/Observable';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class ImageService {
@@ -23,6 +24,9 @@ export class ImageService {
   }
 
   save(image: any): Observable<any> {
+    if (!image) {
+      return  of(null);
+    }
     const input = new FormData();
     input.append('file', image);
     return this.http.post(this.imageUrl, input, this.httpOptions);

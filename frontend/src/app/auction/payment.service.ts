@@ -22,17 +22,17 @@ export class PaymentService {
   }
 
   buy(id: number): Observable<AuctionDetail> {
-    const url = `${this.paymentUrl}/buy/${id}`;
-    return this.http.get<AuctionDetail>(url, this.httpOptions);
+    const url = `${this.paymentUrl}/${id}/buy}`;
+    return this.http.post<AuctionDetail>(url, this.httpOptions);
   }
 
   bid(id: number, amount: number): Observable<AuctionDetail> {
-    const url = `${this.paymentUrl}/bid`;
+    const url = `${this.paymentUrl}/${id}/bid`;
     return this.http.post<AuctionDetail>(url, {auctionId: id, amount: amount}, this.httpOptions);
   }
 
   chargePoints(amount: number) {
-    const url = `${this.paymentUrl}/charge-points`;
+    const url = `${this.paymentUrl}/charge`;
     return this.http.post(url, {amount: amount}, this.httpOptions);
   }
 
